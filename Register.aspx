@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
-<!doctype html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -98,34 +98,83 @@
 
                         </div>
                         <div class="col-md-4 col-md-offset-s1">
-                            <form method="post" action="#" runat="server">
+                            <form method="post" action="Register.aspx" runat="server">
                                 <div class="card card-plain">
                                     <div class="content">
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="text" ID="id" placeholder="ID" class="form-control"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="id" AutoPostBack="false" placeholder="ID" class="form-control"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                                    ControlToValidate="fName"
+                                                    ErrorMessage="ID Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator runat="server" ControlToValidate="id"
+                                                    ErrorMessage="ID Is Invalid (9 digits)"
+                                                    ValidationExpression="^[0-9]{9}"
+                                                    Display="Dynamic">
+                                                </asp:RegularExpressionValidator>
+                                            </p>
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="email" ID="fName" placeholder="Your First Name" class="form-control"></asp:TextBox>
+                                            <asp:TextBox runat="server" type="text" AutoPostBack="false" ID="fName" placeholder="First Name" class="form-control"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
+                                                    ControlToValidate="fName"
+                                                    ErrorMessage="First Name Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="email" ID="lName" placeholder="Your Last Name" class="form-control"></asp:TextBox>
+                                            <asp:TextBox runat="server" type="text" AutoPostBack="false" ID="lName" placeholder="Last Name" class="form-control"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
+                                                    ControlToValidate="lName"
+                                                    ErrorMessage="Last Name Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="text" ID="bDay" placeholder="Birthdate" class="form-control datepicker"></asp:TextBox>
+                                            <asp:TextBox runat="server" type="text" AutoPostBack="false" ID="bDay" placeholder="Birthdate" class="form-control datepicker"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
+                                                    ControlToValidate="bDay"
+                                                    ErrorMessage="Birthdate Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
                                         </div>
                                         <div class="form-group">
-                                            <asp:Button runat="server" type="button" class="btn btn-fill btn-neutral btn-sm" Text="Male"></asp:button>
-                                            <asp:Button runat="server" type="button" class="btn btn-fill btn-neutral btn-sm" Text="Female"></asp:Button>
+                                            <asp:RadioButtonList ID="radioGender" runat="server">
+                                                <asp:ListItem Text=" Male" Value="1" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Text=" Female" Value="2"></asp:ListItem>
+                                            </asp:RadioButtonList>
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="password" ID="pass1" placeholder="Password" class="form-control"></asp:TextBox>
+                                            <asp:TextBox runat="server" type="password" AutoPostBack="false" ID="pass1" placeholder="Password" class="form-control"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
+                                                    ControlToValidate="pass1"
+                                                    ErrorMessage="Password Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" type="password" ID="pass2" placeholder="Password Confirmation" class="form-control"></asp:TextBox>
+                                            <asp:TextBox runat="server" type="password" AutoPostBack="false" ID="pass2" placeholder="Password Confirmation" class="form-control"></asp:TextBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server"
+                                                    ControlToValidate="pass2"
+                                                    ErrorMessage="Password Confirmation Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="footer text-center">
-                                        <asp:Button runat="server" type="submit" class="btn btn-fill btn-neutral btn-wd" Text="Create Free Account"></asp:Button>
+                                        <asp:Button runat="server" type="submit" ID="createBtn" CausesValidation="true" CssClass="btn btn-fill btn-neutral btn-wd" Text="Create Free Account"></asp:Button>
                                     </div>
                                 </div>
                             </form>

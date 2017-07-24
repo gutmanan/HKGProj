@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,23 +12,56 @@ public partial class Register : System.Web.UI.Page
     {
         if (IsPostBack)
         {
-            if (pass1.Equals(pass2))
-            {
-                sid = id.Text;
-                HKGManager.Logger.Append("ID was entered: "+id.Text);
-                sfName = fName.Text;
-                slName = lName.Text;
-                sbDay = bDay.Text;
-                sPass = pass1.Text;
+            regAccount();
+        }
+      
+    }
 
+    private void regAccount()
+    {
+        if (pass1.Text.Equals(pass2.Text))
+        {
+            sid = id.Text;
+            sfName = fName.Text;
+            slName = lName.Text;
+            sbDay = bDay.Text;
+            sPass = pass1.Text;
+            sGender = radioGender.SelectedValue.Equals("1") ? "M" : "F";
+            HKGManager.Logger.Append("New user registration:");
+            HKGManager.Logger.Append("ID: " + sid);
+            HKGManager.Logger.Append("First name: " + sfName);
+            HKGManager.Logger.Append("Last name: " + slName);
+            HKGManager.Logger.Append("Birthdate: " + sbDay);
+            HKGManager.Logger.Append("Gender: " + sGender);
+            HKGManager.Logger.Append("Password: " + sPass);
+
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("ID", sid);
+            param.Add("firstName", sfName);
+            param.Add("surName", slName);
+            param.Add("dateOfBirth", sbDay);
+            param.Add("gender", sGender);
+            param.Add("pass", sPass);
+
+            try
+            {
+                DataTable classes = HKGManager.SQL.runProcWithResults("addParent", param);
+            } catch (Exception e)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Oops! ID already registered');", true);
+                return;
             }
+            HKGManager.Logger.Append("New user was added");
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Account was successfully registered');", true);
+            Response.Redirect("/Login.aspx");
         }
     }
 
-    private String sid;
-    private String sfName;
-    private String slName;
-    private String sbDay;
-    private String sPass;
-    private String sGender;
+    private static String sid;
+    private static String sfName;
+    private static String slName;
+    private static String sbDay;
+    private static String sPass;
+    private static String sGender;
+    private static bool genSelected = false;
 }

@@ -26,7 +26,7 @@ public class SQLConnection
         conn.Close();
     }
 
-    public DataTable runProcWithResults(string procName, Dictionary<String, Object> valMap)
+    public DataTable runProcWithResults(string procName, Dictionary<String, Object> valMap) 
     {
         if (valMap == null) valMap = new Dictionary<string, object>();
         HKGManager.Logger.Append("Calling proc " + procName +" valMap size "+valMap.Count);
@@ -59,15 +59,14 @@ public class SQLConnection
             //myCommand.ExecuteNonQuery();
 
             closeSQL();
-
-            HKGManager.Logger.Append("Calling proc returned " + toReturn.Rows.Count +" values");
-            return toReturn;
         }
         catch (Exception e)
         {
             HKGManager.Logger.Append("Caught exception: " + e.ToString());
-            return new DataTable();
+            throw e;
         }
+        HKGManager.Logger.Append("Calling proc returned " + toReturn.Rows.Count + " values");
+        return new DataTable();
     }
 
     public List<String> executeProc(String s) {
