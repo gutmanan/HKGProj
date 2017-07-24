@@ -4,7 +4,7 @@
      Homepage
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="mainContent" Runat="Server">
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <head>
   <link href='https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
   <link href='//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css' rel='stylesheet' type='text/css'>

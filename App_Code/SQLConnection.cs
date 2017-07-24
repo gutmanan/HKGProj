@@ -29,7 +29,7 @@ public class SQLConnection
     public DataTable runProcWithResults(string procName, Dictionary<String, Object> valMap)
     {
         if (valMap == null) valMap = new Dictionary<string, object>();
-        HKGManager.Logger.Append("Calling proc " + procName);
+        HKGManager.Logger.Append("Calling proc " + procName +" valMap size "+valMap.Count);
         DataTable toReturn = new DataTable();
         cmd = new SqlCommand();
         cmd.CommandText = procName;
@@ -60,7 +60,7 @@ public class SQLConnection
 
             closeSQL();
 
-            HKGManager.Logger.Append("Calling proc returned" + toReturn.Rows.Count +" values");
+            HKGManager.Logger.Append("Calling proc returned " + toReturn.Rows.Count +" values");
             return toReturn;
         }
         catch (Exception e)

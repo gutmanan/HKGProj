@@ -5,13 +5,18 @@ using System.Reflection;
 
 public class LogWriter
 {
-    private string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+    private string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\log.txt";
+
+    public LogWriter()
+    {
+        File.WriteAllText(path, String.Empty);
+    }
 
     public void Append(string logMessage)
     {
         try
         {
-            using (StreamWriter w = File.AppendText(path + "\\" + "log.txt"))
+            using (StreamWriter w = File.AppendText(path))
             {
                 Log(logMessage, w);
             }
