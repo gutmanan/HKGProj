@@ -3,16 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="Server">
-
-    <!-- Bootstrap core CSS     -->
-    <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
-    <!--  Light Bootstrap Dashboard core CSS    -->
-    <link href="<%= Page.ResolveUrl("~/assets/css/light-bootstrap-dashboard.css")%>" rel="stylesheet" />
-    <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="<%= Page.ResolveUrl("~/assets/css/pe-icon-7-stroke.css")%>" rel="stylesheet" />
-
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -302,38 +292,14 @@
             </div>
         </div>
     </div>
-    <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
-    <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
-    <script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap.min.js")%>' type="text/javascript"></script>
-    <!--  Forms Validations Plugin -->
-    <script src='<%=ResolveUrl("~/assets/js/jquery.validate.min.js")%>'></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-    <script src='<%=ResolveUrl("~/assets/js/moment.min.js")%>'></script>
-    <!--  Date Time Picker Plugin is included in this js file -->
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap-datetimepicker.js")%>'></script>
-    <!--  Select Picker Plugin -->
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap-selectpicker.js")%>'></script>
-    <!--  Checkbox, Radio, Switch and Tags Input Plugins -->
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap-checkbox-radio-switch-tags.js")%>'></script>
-    <!--  Charts Plugin -->
-    <script src='<%=ResolveUrl("~/assets/js/chartist.min.js")%>'></script>
-    <!--  Notifications Plugin    -->
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap-notify.js")%>'></script>
-    <!-- Sweet Alert 2 plugin -->
-    <script src='<%=ResolveUrl("~/assets/js/sweetalert2.js")%>'></script>
-    <!-- Vector Map plugin -->
-    <script src='<%=ResolveUrl("~/assets/js/jquery-jvectormap.js")%>'></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <!-- Wizard Plugin    -->
-    <script src='<%=ResolveUrl("~/assets/js/jquery.bootstrap.wizard.min.js")%>'></script>
-    <!--  bootstrap Table Plugin    -->
-    <script src='<%=ResolveUrl("~/assets/js/bootstrap-table.js")%>'></script>
-    <!--  Plugin for DataTables.net  -->
-    <script src='<%=ResolveUrl("~/assets/js/jquery.datatables.js")%>'></script>
-    <!--  Full Calendar Plugin    -->
-    <script src='<%=ResolveUrl("~/assets/js/fullcalendar.min.js")%>'></script>
-    <!-- Light Bootstrap Dashboard Core javascript and methods -->
-    <script src='<%=ResolveUrl("~/assets/js/light-bootstrap-dashboard.js")%>'></script>
+    
+	<script type="text/javascript">
+        $(document).ready(function () {
+
+            demo.initDashboardPageCharts();
+            demo.initVectorMap();
+
+        });
+	</script>
+
 </asp:Content>

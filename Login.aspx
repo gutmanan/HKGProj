@@ -13,7 +13,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-
     <!-- Bootstrap core CSS     -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -23,7 +22,6 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="../../assets/css/demo.css" rel="stylesheet" />
 
-
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -31,7 +29,6 @@
 
 </head>
 <body>
-
     <nav class="navbar navbar-transparent navbar-absolute">
         <div class="container">
             <div class="navbar-header">
@@ -54,11 +51,8 @@
             </div>
         </div>
     </nav>
-
-
     <div class="wrapper wrapper-full-page">
         <div class="full-page login-page" data-color="orange" data-image="../../assets/img/full-screen-image-1.jpg">
-
             <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
             <div class="content">
                 <div class="container">

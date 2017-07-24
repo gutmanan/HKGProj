@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,14 +8,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Haifa Kindergartens</title>
+
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
+
     <!-- Bootstrap core CSS     -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="../../assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="../../assets/css/demo.css" rel="stylesheet" />
+
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
@@ -24,7 +28,6 @@
 
 </head>
 <body>
-
     <nav class="navbar navbar-transparent navbar-absolute">
         <div class="container">
             <div class="navbar-header">
@@ -46,10 +49,8 @@
             </div>
         </div>
     </nav>
-
     <div class="wrapper wrapper-full-page">
-        <div class="full-page register-page" data-color="orange" data-image="../../assets/img/full-screen-image-2.jpg">
-
+        <div class="full-page register-page" data-color="orange" data-image="../../assets/img/full-screen-image-1.jpg">
             <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
             <div class="content">
                 <div class="container">
@@ -97,27 +98,34 @@
 
                         </div>
                         <div class="col-md-4 col-md-offset-s1">
-                            <form method="#" action="#">
+                            <form method="post" action="#" runat="server">
                                 <div class="card card-plain">
                                     <div class="content">
                                         <div class="form-group">
-                                            <input type="email" placeholder="Your First Name" class="form-control">
+                                            <asp:TextBox runat="server" type="text" ID="id" placeholder="ID" class="form-control"></asp:TextBox>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" placeholder="Your Last Name" class="form-control">
+                                            <asp:TextBox runat="server" type="email" ID="fName" placeholder="Your First Name" class="form-control"></asp:TextBox>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" placeholder="Birthdate" class="form-control datepicker">
+                                            <asp:TextBox runat="server" type="email" ID="lName" placeholder="Your Last Name" class="form-control"></asp:TextBox>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" placeholder="Password" class="form-control">
+                                            <asp:TextBox runat="server" type="text" ID="bDay" placeholder="Birthdate" class="form-control datepicker"></asp:TextBox>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" placeholder="Password Confirmation" class="form-control">
+                                            <asp:Button runat="server" type="button" class="btn btn-fill btn-neutral btn-sm" Text="Male"></asp:button>
+                                            <asp:Button runat="server" type="button" class="btn btn-fill btn-neutral btn-sm" Text="Female"></asp:Button>
+                                        </div>
+                                        <div class="form-group">
+                                            <asp:TextBox runat="server" type="password" ID="pass1" placeholder="Password" class="form-control"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group">
+                                            <asp:TextBox runat="server" type="password" ID="pass2" placeholder="Password Confirmation" class="form-control"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="footer text-center">
-                                        <button type="submit" class="btn btn-fill btn-neutral btn-wd">Create Free Account</button>
+                                        <asp:Button runat="server" type="submit" class="btn btn-fill btn-neutral btn-wd" Text="Create Free Account"></asp:Button>
                                     </div>
                                 </div>
                             </form>
@@ -133,12 +141,10 @@
         </div>
     </div>
 </body>
-
 <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
 <script src="../../assets/js/jquery.min.js" type="text/javascript"></script>
 <script src="../../assets/js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
-
 
 <!--  Forms Validations Plugin -->
 <script src="../../assets/js/jquery.validate.min.js"></script>
@@ -173,12 +179,8 @@
 <!-- Wizard Plugin    -->
 <script src="../../assets/js/jquery.bootstrap.wizard.min.js"></script>
 
-<!--  Bootstrap Table Plugin    -->
+<!--  Datatable Plugin    -->
 <script src="../../assets/js/bootstrap-table.js"></script>
-
-<!--  Plugin for DataTables.net  -->
-<script src="../../assets/js/jquery.datatables.js"></script>
-
 
 <!--  Full Calendar Plugin    -->
 <script src="../../assets/js/fullcalendar.min.js"></script>
@@ -191,13 +193,22 @@
 
 <script type="text/javascript">
     $().ready(function () {
+
+        // Init Sliders
+        demo.initFormExtendedSliders();
+
+        // Init DatetimePicker
+        demo.initFormExtendedDatetimepickers();
+
         lbd.checkFullPageBackgroundImage();
 
         setTimeout(function () {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
-        }, 1000)
+        }, 700)
     });
 </script>
 
 </html>
+
+
