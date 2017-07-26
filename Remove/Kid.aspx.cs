@@ -34,7 +34,7 @@ public partial class Remove_Kid : System.Web.UI.Page
     }
     public void FillKGBox()
     {
-        DataTable kindergartens = HKGManager.SQL.runProcWithResults("getKindergartens", null);
+        DataTable kindergartens = HKGManager.SQL.executeProc("getKindergartens", null);
         foreach (DataRow row in kindergartens.Rows)
         {
             ListItem li = new ListItem(row["name"].ToString());
@@ -67,7 +67,7 @@ public partial class Remove_Kid : System.Web.UI.Page
         CBox.Items.Clear();
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("ID", KGBox.SelectedItem.Value);
-        DataTable classes = HKGManager.SQL.runProcWithResults("getClasses", param);
+        DataTable classes = HKGManager.SQL.executeProc("getClasses", param);
         foreach (DataRow row in classes.Rows)
         {
             ListItem li = new ListItem(row["name"].ToString());
@@ -82,7 +82,7 @@ public partial class Remove_Kid : System.Web.UI.Page
         {
             Dictionary<string, object> param = new Dictionary<string, object>();
             param.Add("ID", id.Text);
-            DataTable kid = HKGManager.SQL.runProcWithResults("getKid", param);
+            DataTable kid = HKGManager.SQL.executeProc("getKid", param);
             foreach (DataRow row in kid.Rows)
             {
                 id_first_name.Text = row["firstName"].ToString();

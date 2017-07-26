@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-
+using System.Threading;
 
 public class LogWriter
 {
@@ -11,7 +11,7 @@ public class LogWriter
     {
         File.WriteAllText(path, String.Empty);
     }
-
+    
     public void Append(string logMessage)
     {
         try

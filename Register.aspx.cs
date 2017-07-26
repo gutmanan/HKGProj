@@ -45,14 +45,13 @@ public partial class Register : System.Web.UI.Page
 
             try
             {
-                DataTable classes = HKGManager.SQL.runProcWithResults("addParent", param);
+                DataTable classes = HKGManager.SQL.executeProc("addParent", param);
             } catch (Exception e)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Oops! ID already registered');", true);
                 return;
             }
             HKGManager.Logger.Append("New user was added");
-            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Account was successfully registered');", true);
             Response.Redirect("/Login.aspx");
         }
     }

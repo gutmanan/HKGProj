@@ -6126,26 +6126,26 @@ a.list-group-item-danger, button.list-group-item-danger {
     }
 
 .panel-warning {
-    border-color: #faebcc
+    border-color: #f0ad4e
 }
 
     .panel-warning > .panel-heading {
-        color: #8a6d3b;
-        background-color: #fcf8e3;
-        border-color: #faebcc
+        color: #f0ad4e;
+        background-color: #f0ad4e;
+        border-color: #f0ad4e
     }
 
         .panel-warning > .panel-heading + .panel-collapse > .panel-body {
-            border-top-color: #faebcc
+            border-top-color: #f0ad4e
         }
 
         .panel-warning > .panel-heading .badge {
-            color: #fcf8e3;
-            background-color: #8a6d3b
+            color: #f0ad4e;
+            background-color: #f0ad4e
         }
 
     .panel-warning > .panel-footer + .panel-collapse > .panel-body {
-        border-bottom-color: #faebcc
+        border-bottom-color: #f0ad4e
     }
 
 .panel-danger {

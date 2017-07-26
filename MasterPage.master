@@ -80,9 +80,9 @@
                         </a>
                         <div class="collapse" id="SignedFor">
                             <ul class="nav">
-                                <li><a href="Add/SignedFor.aspx">Add</a></li>
-                                <li><a href="Update/SignedFor.aspx">Update</a></li>
-                                <li><a href="Remove/SignedFor.aspx">Remove</a></li>
+                                <li><a href='<%=ResolveUrl("~/Add/SignedFor.aspx")%>'>Add</a></li>
+                                <li><a href='<%=ResolveUrl("~/Update/SignedFor.aspx")%>'>Update</a></li>
+                                <li><a href='<%=ResolveUrl("~/Remove/SignedFor.aspx")%>'>Remove</a></li>
                             </ul>
                         </div>
                     </li>

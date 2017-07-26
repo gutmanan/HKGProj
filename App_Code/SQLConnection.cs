@@ -18,17 +18,20 @@ public class SQLConnection
 
     public void openSQL()
     {
+        HKGManager.Logger.Append("Opening conn");
         conn.Open();
     }
 
     public void closeSQL()
     {
+        HKGManager.Logger.Append("Closing conn");
         conn.Close();
     }
 
-    public DataTable runProcWithResults(string procName, Dictionary<String, Object> valMap) 
+    public DataTable executeProc(string procName, Dictionary<String, Object> valMap) 
     {
         if (valMap == null) valMap = new Dictionary<string, object>();
+
         HKGManager.Logger.Append("Calling proc " + procName +" valMap size "+valMap.Count);
         DataTable toReturn = new DataTable();
         cmd = new SqlCommand();
@@ -36,11 +39,8 @@ public class SQLConnection
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Connection = conn;
 
-        if (conn.State != ConnectionState.Closed)
-        {
-            HKGManager.Logger.Append("Closing conn");
-            closeSQL();
-        }
+        if (conn.State != ConnectionState.Closed) closeSQL();
+        
         try
         {
             //Add values to the PROC Execution
@@ -66,9 +66,9 @@ public class SQLConnection
             throw e;
         }
         HKGManager.Logger.Append("Calling proc returned " + toReturn.Rows.Count + " values");
-        return new DataTable();
+        return toReturn;
     }
-
+    /*
     public List<String> executeProc(String s) {
         List<string> res = new List<string>();
         //Create the connection object
@@ -81,7 +81,7 @@ public class SQLConnection
             {
                 // Pass the parameter values here
                 // command.Parameters.AddWithValue("@kid", "111190611");
-                /* command.Parameters.AddWithValue("@YourSpParameter", "ParameterValue");*/
+                command.Parameters.AddWithValue("@YourSpParameter", "ParameterValue");
                 int rowsAffected = command.ExecuteNonQuery();
                 Console.WriteLine("THE PRINT " + rowsAffected);
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -97,6 +97,7 @@ public class SQLConnection
             return res;
         }
     }
+    */
 }
 
     
