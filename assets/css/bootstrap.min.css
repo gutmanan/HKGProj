@@ -6130,7 +6130,7 @@ a.list-group-item-danger, button.list-group-item-danger {
 }
 
     .panel-warning > .panel-heading {
-        color: #f0ad4e;
+        color: #fff;
         background-color: #f0ad4e;
         border-color: #f0ad4e
     }
@@ -6140,7 +6140,7 @@ a.list-group-item-danger, button.list-group-item-danger {
         }
 
         .panel-warning > .panel-heading .badge {
-            color: #f0ad4e;
+            color: #fff;
             background-color: #f0ad4e
         }
 

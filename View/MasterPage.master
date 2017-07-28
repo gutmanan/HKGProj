@@ -41,21 +41,14 @@
                         <img src='<%=ResolveUrl("~/assets/img/default-avatar.png")%>' />
                     </div>
                     <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">Admin
-                            <b class="caret"></b>
+                        <a data-toggle="collapse" class="collapsed">
+                            <asp:Literal runat="server" ID="userLogged"></asp:Literal>
                         </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-                                <li><a href="#">My Profile</a></li>
-                                <li><a href="#">Edit Profile</a></li>
-                                <li><a href="#">Settings</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <ul class="nav">
                     <li class="active">
-                        <a href='<%=ResolveUrl("~/Default.aspx")%>'>
+                        <a href='<%=ResolveUrl("~/View/Default.aspx")%>'>
                             <i class="pe-7s-graph"></i>
                             <p>Dashboard</p>
                         </a>
@@ -67,9 +60,9 @@
                         </a>
                         <div class="collapse" id="Kids">
                             <ul class="nav">
-                                <li><a href='<%=ResolveUrl("~/Add/Kid.aspx")%>'>Add</a></li>
-                                <li><a href='<%=ResolveUrl("~/Update/Kid.aspx")%>'>Update</a></li>
-                                <li><a href='<%=ResolveUrl("~/Remove/Kid.aspx")%>'>Remove</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Add/Kid.aspx")%>'>Add</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Update/Kid.aspx")%>'>Update</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Remove/Kid.aspx")%>'>Remove</a></li>
                             </ul>
                         </div>
                     </li>
@@ -80,9 +73,9 @@
                         </a>
                         <div class="collapse" id="SignedFor">
                             <ul class="nav">
-                                <li><a href='<%=ResolveUrl("~/Add/SignedFor.aspx")%>'>Add</a></li>
-                                <li><a href='<%=ResolveUrl("~/Update/SignedFor.aspx")%>'>Update</a></li>
-                                <li><a href='<%=ResolveUrl("~/Remove/SignedFor.aspx")%>'>Remove</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Add/SignedFor.aspx")%>'>Add</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Update/SignedFor.aspx")%>'>Update</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Remove/SignedFor.aspx")%>'>Remove</a></li>
                             </ul>
                         </div>
                     </li>
@@ -93,9 +86,9 @@
                         </a>
                         <div class="collapse" id="Opinions">
                             <ul class="nav">
-                                <li><a href="Add/Opinion.aspx">Add</a></li>
-                                <li><a href="Update/Opinion.aspx">Update</a></li>
-                                <li><a href="Remove/Opinion.aspx">Remove</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Add/Opinion.aspx")%>'>Add</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Update/Opinion.aspx")%>'>Update</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Remove/Opinion.aspx")%>'>Remove</a></li>
                             </ul>
                         </div>
                     </li>
@@ -199,7 +192,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/Login.aspx" class="text-danger">
+                                        <a href='<%=ResolveUrl("~/View/Login.aspx")%>' class="text-danger">
                                             <i class="pe-7s-close-circle"></i>
                                             Log out
                                         </a>

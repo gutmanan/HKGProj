@@ -1,5 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
+<script type="text/javascript">
+    function existAlert() {
+        swal({
+            title: "Auto close alert!",
+            text: "I will close in 2 seconds.",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    }
+</script>
 
 <html lang="en">
 <head>
@@ -42,7 +52,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/Login.aspx">Looking to login?
+                        <a href='<%=ResolveUrl("~/View/Login.aspx")%>'>Looking to login?
                         </a>
                     </li>
                 </ul>

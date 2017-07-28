@@ -38,13 +38,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../Default.aspx">Haifa Kindergartens</a>
+                <a class="navbar-brand" href='<%=ResolveUrl("~/View/Default.aspx")%>'>Haifa Kindergartens</a>
             </div>
             <div class="collapse navbar-collapse">
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/Register.aspx">Register
+                        <a href='<%=ResolveUrl("~/View/Register.aspx")%>'>Register
                         </a>
                     </li>
                 </ul>

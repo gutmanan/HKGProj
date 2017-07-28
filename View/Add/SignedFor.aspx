@@ -1,18 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SignedFor.aspx.cs" Inherits="Add_SignedFor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/View/MasterPage.master" AutoEventWireup="true" CodeFile="SignedFor.aspx.cs" Inherits="Add_SignedFor" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     Homepage
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="mainContent" runat="Server">
-    <link href='https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <link href='https://davidstutz.github.io/bootstrap-multiselect/css/bootstrap-multiselect.css' rel='stylesheet' type='text/css'>
-    <script src='https://davidstutz.github.io/bootstrap-multiselect/js/bootstrap-multiselect.js' type='text/javascript'></script>
+    <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
 
     <div class='container'>
-        <div class='panel panel-primary dialog-panel'>
-            <div class='panel-heading card header'>
-                <h5>Update Kid</h5>
-            </div>
+        <div class='panel panel-warning dialog-panel'>
+            <div class='panel-heading'>Sign up a kid for an activity</div>
             <div class='panel-body'>
                 <form class='form-horizontal' role='form' runat="server" id="FormView">
                     <div class='form-group'>
@@ -44,7 +40,7 @@
                     <div class="card">
                         <div class="content">
                             <div class="toolbar">
-                                <!--        Here you can write extra buttons/actions for the toolbar              -->
+                                <!--Here you can write extra buttons/actions for the toolbar              -->
                             </div>
                             <div class="fresh-datatables">
                                 <div id="datatables_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">

@@ -10,7 +10,10 @@ public partial class Add_SignedFor : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
+        if (!IsPostBack)
+        {
+            FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
+        }
     }
 
     protected void FindBtn_Click(object sender, EventArgs e)

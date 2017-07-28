@@ -62,7 +62,7 @@ public class SQLConnection
         }
         catch (Exception e)
         {
-            HKGManager.Logger.Append("Caught exception: " + e.ToString());
+            HKGManager.Logger.Append("Caught exception: " + e.GetType());
             throw e;
         }
         HKGManager.Logger.Append("Calling proc returned " + toReturn.Rows.Count + " values");

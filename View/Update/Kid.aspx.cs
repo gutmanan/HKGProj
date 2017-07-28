@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,12 +11,11 @@ public partial class Update_Kid : System.Web.UI.Page
 {
     public void Page_Load(object sender, EventArgs e)
     {
-        KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
-        FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
         if (!IsPostBack)
         {
+            KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
+            FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
             FillKGBox();
-            FillBirthdateBoxes();
         }
     }
     public void FillKGBox()
@@ -27,20 +27,6 @@ public partial class Update_Kid : System.Web.UI.Page
             li.Value = row["ID"].ToString();
             KGBox.Items.Add(li);
         }
-    }
-
-    public void FillBirthdateBoxes()
-    {
-        DayBox.Items.Add(new ListItem("Day"));
-        for (int i = 1; i < 32; i++)
-            DayBox.Items.Add(new ListItem(i + ""));
-        MonthBox.Items.Add(new ListItem("Month"));
-        for (int i = 1; i < 13; i++)
-            MonthBox.Items.Add(new ListItem(i + ""));
-        int thisYear = DateTime.Now.Year;
-        YearBox.Items.Add(new ListItem("Year"));
-        for (int i = thisYear - 10; i < thisYear; i++)
-            YearBox.Items.Add(new ListItem(i + ""));
     }
 
     public void KGBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,10 +59,9 @@ public partial class Update_Kid : System.Web.UI.Page
             {
                 id_first_name.Text = row["firstName"].ToString();
                 id_last_name.Text = row["surName"].ToString();
-                String[] splitted = row["dateOfBirth"].ToString().Split(' ')[0].Split('/');
-                DayBox.SelectedValue = splitted[0];
-                MonthBox.SelectedValue = splitted[1];
-                YearBox.SelectedValue = splitted[2];
+                String s = row["dateOfBirth"].ToString().Split(' ')[0];
+                DateTime result = DateTime.ParseExact(s, "M/d/yyyy", CultureInfo.InvariantCulture);
+                bDay.Text = result.ToString("yyyy-MM-dd");
                 StreetBox.Text = row["street"].ToString();
                 HouseBox.Text = row["houseNumber"].ToString();
                 LatBox.Text = row["latitude"].ToString();

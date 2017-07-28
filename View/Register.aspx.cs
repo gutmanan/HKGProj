@@ -14,7 +14,6 @@ public partial class Register : System.Web.UI.Page
         {
             regAccount();
         }
-      
     }
 
     private void regAccount()
@@ -48,11 +47,12 @@ public partial class Register : System.Web.UI.Page
                 DataTable classes = HKGManager.SQL.executeProc("addParent", param);
             } catch (Exception e)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Oops! ID already registered');", true);
+                HKGManager.Logger.Append("User with the ID "+sid+" already exist");
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('User with the ID "+sid+" already exist!')", true);
                 return;
             }
             HKGManager.Logger.Append("New user was added");
-            Response.Redirect("/Login.aspx");
+            Response.Redirect("/View/Login.aspx");
         }
     }
 
@@ -62,5 +62,4 @@ public partial class Register : System.Web.UI.Page
     private static String sbDay;
     private static String sPass;
     private static String sGender;
-    private static bool genSelected = false;
 }

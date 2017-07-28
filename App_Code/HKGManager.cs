@@ -9,6 +9,7 @@ public static class HKGManager
 {
     private static SQLConnection sql = new SQLConnection();
     private static LogWriter logger = new LogWriter();
+    private static User authUser;
 
     public static SQLConnection SQL
     {
@@ -20,5 +21,11 @@ public static class HKGManager
     {
         get { return HKGManager.logger; }
         set { HKGManager.logger = value; }
+    }
+
+    public static User AuthUser
+    {
+        get { return HKGManager.authUser; }
+        set { HKGManager.authUser = value; }
     }
 }

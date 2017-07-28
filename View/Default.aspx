@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/View/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -292,14 +292,15 @@
             </div>
         </div>
     </div>
-    
-	<script type="text/javascript">
+    <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+    <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+    <script type="text/javascript">
         $(document).ready(function () {
 
             demo.initDashboardPageCharts();
             demo.initVectorMap();
 
         });
-	</script>
+    </script>
 
 </asp:Content>
