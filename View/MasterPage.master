@@ -92,6 +92,12 @@
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <a href="/View/ActivityCal.aspx">
+                            <i class="pe-7s-date"></i>
+                            <p>Calendar</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

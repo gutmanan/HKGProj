@@ -13,6 +13,7 @@ public partial class Add_SignedFor : System.Web.UI.Page
         if (!IsPostBack)
         {
             FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
+            lit.Text = "0";
         }
     }
 
@@ -66,6 +67,7 @@ public partial class Add_SignedFor : System.Web.UI.Page
             // Add the TableRow to the Table
             table.Rows.Add(row);
         }
+        lit.Text = table.Rows.Count-1 + "";
     }
 
     private List<String> checks = new List<string>();

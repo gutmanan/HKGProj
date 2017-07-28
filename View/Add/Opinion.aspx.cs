@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Add_Opinion : System.Web.UI.Page
@@ -32,7 +33,7 @@ public partial class Add_Opinion : System.Web.UI.Page
     public void KGBox_SelectedIndexChanged(object sender, EventArgs e)
     {
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("ID", KGBox.Items[KGBox.SelectedIndex].Value);
+        param.Add("ID", KGBox.SelectedItem.Value);
         DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", param);
         GenerateTable(opinions);
     }
@@ -65,12 +66,20 @@ public partial class Add_Opinion : System.Web.UI.Page
                 cell.Text = dt.Rows[i][j].ToString();
                 row.Cells.Add(cell);
             }
-            TableCell c = new TableCell();
-            c.Controls.Add(new CheckBox());
-            row.Cells.Add(c);
+            TableCell cell1 = new TableCell();
+            HyperLink hl = new HyperLink()
+            {
+                Text = string.Format("<img src='../assets/img/icons/edit.png' />"),
+                NavigateUrl = "#TB_inline?height=200&width=300&inlineId=myOnPageContent",
+                CssClass = "btn btn-simple btn-info btn-icon table-action view",
+                ToolTip = "View",
+
+            };
+            cell1.Controls.Add(hl);
+            row.Cells.Add(cell1);
             // Add the TableRow to the Table
             table.Rows.Add(row);
         }
-        lit.Text = table.Rows.Count + "";
+        lit.Text = table.Rows.Count-1 + "";
     }
 }

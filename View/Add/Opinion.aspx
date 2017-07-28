@@ -65,6 +65,17 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <td class="td-actions text-right" style="">
+                                                                <a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                                                    <i class="fa fa-image"></i>
+                                                                </a>
+                                                                <a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                <a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="javascript:void(0)">
+                                                                    <i class="fa fa-remove"></i>
+                                                                </a>
+                                                            </td>
                                                             <asp:Table runat="server" ID="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
                                                             </asp:Table>
                                                         </div>

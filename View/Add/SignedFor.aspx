@@ -48,13 +48,8 @@
                                         <div class="col-sm-6">
                                             <div class="dataTables_length" id="datatables_length">
                                                 <label>
-                                                    Show
-                                                    <select name="datatables_length" aria-controls="datatables" class="form-control input-sm">
-                                                        <option value="10">10</option>
-                                                        <option value="25">25</option>
-                                                        <option value="50">50</option>
-                                                        <option value="-1">All</option>
-                                                    </select>
+                                                    Showing                                                            
+                                                                            <asp:Literal runat="server" ID="lit"></asp:Literal>
                                                     entries</label>
                                             </div>
                                         </div>
@@ -65,39 +60,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:Literal runat="server" ID="lit"></asp:Literal>
                                     <asp:Table runat="server" ID="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
                                     </asp:Table>
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">Showing 1 to 10 of 40 entries</div>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
-                                                <ul class="pagination">
-                                                    <li class="paginate_button first disabled" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0">First</a></li>
-                                                    <li class="paginate_button previous disabled" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0">Previous</a></li>
-                                                    <li class="paginate_button active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0">1</a></li>
-                                                    <li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0">2</a></li>
-                                                    <li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0">3</a></li>
-                                                    <li class="paginate_button "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0">4</a></li>
-                                                    <li class="paginate_button next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0">Next</a></li>
-                                                    <li class="paginate_button last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0">Last</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- end content-->
                     </div>
                     <div class='form-group'>
-                        <div class='col-md-2 col-md-offset-2'>
-                            <asp:Button runat="server" class="btn btn-warning btn-fill btn-wd" Style='float: right' Text="Update Kid" ID="Submit"></asp:Button>
-                        </div>
-                        <div class='col-md-2'>
-                            <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Style='float: right' Text="Cancel" type='submit'></asp:Button>
+                        <br />
+                        <div class="footer text-center">
+                            <asp:Button runat="server" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" Text="Update Kid" type='submit'></asp:Button>
+                            <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
                 </form>
