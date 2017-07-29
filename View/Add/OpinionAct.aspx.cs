@@ -4,43 +4,45 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Add_Opinion : System.Web.UI.Page
+public partial class View_Add_Default : System.Web.UI.Page
 {
+    private static List<HiddenField> hfs = new List<HiddenField>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
-            FillKGBox();
-            lit.Text = "0";
+            ACTBox.SelectedIndexChanged += new EventHandler(this.ACTBox_SelectedIndexChanged);
+            FillACTBox();
+            Literal1.Text = "0";
+
         }
     }
 
-    public void FillKGBox()
+    public void FillACTBox()
     {
-        DataTable kindergartens = HKGManager.SQL.executeProc("getKindergartens", null);
-        foreach (DataRow row in kindergartens.Rows)
+        DataTable activities = HKGManager.SQL.executeProc("getActivities", null);
+        foreach (DataRow row in activities.Rows)
         {
             ListItem li = new ListItem(row["name"].ToString());
             li.Value = row["ID"].ToString();
-            KGBox.Items.Add(li);
+            ACTBox.Items.Add(li);
         }
     }
 
-    public void KGBox_SelectedIndexChanged(object sender, EventArgs e)
+    protected void ACTBox_SelectedIndexChanged(object sender, EventArgs e)
     {
         Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("ID", KGBox.SelectedItem.Value);
-        DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", param);
-        GenerateTable(opinions);
+        param.Add("actID", ACTBox.SelectedItem.Value);
+        DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByActivity", param);
+        GenerateTable(opinions, Table1);
     }
 
-    private void GenerateTable(DataTable dt)
+    private void GenerateTable(DataTable dt, Table tbl)
     {
-        Table table = datatables;
+        Table table = tbl;
         TableRow row = null;
 
         //Add the Headers
@@ -68,10 +70,9 @@ public partial class Add_Opinion : System.Web.UI.Page
             }
             TableCell cell1 = new TableCell();
             table.EnableViewState = false;
-            HyperLink hl = new HyperLink()
+            HyperLink h1 = new HyperLink()
             {
                 Text = string.Format("<i class='fa fa-image'></i>"),
-                NavigateUrl = "#TB_inline?height=200&width=300&inlineId=myOnPageContent",
                 CssClass = "btn btn-simple btn-info btn-icon table-action view",
                 ToolTip = "View"
             };
@@ -87,9 +88,10 @@ public partial class Add_Opinion : System.Web.UI.Page
                 CssClass = "btn btn-simple btn-danger btn-icon table-action remove",
                 ToolTip = "Remove"
             };
-            h2.Attributes.Add("onclick", "demo.showSwal('input-field')");
-            h3.Attributes.Add("onclick", "demo.showSwal('warning-message-and-confirmation')");
-            cell1.Controls.Add(hl);
+            h1.Attributes.Add("onclick", "showSwal('basic','" + row.Cells[1].Text + "');");
+            h2.Attributes.Add("onclick", "showSwal('input-field','" + row.Cells[0].Text + "');");
+            h3.Attributes.Add("onclick", "showSwal('warning-message-and-confirmation');");
+            cell1.Controls.Add(h1);
             HyperLink s1 = new HyperLink() { Text = " " };
             cell1.Controls.Add(s1);
             cell1.Controls.Add(h2);
@@ -98,8 +100,20 @@ public partial class Add_Opinion : System.Web.UI.Page
             cell1.Controls.Add(h3);
             row.Cells.Add(cell1);
             // Add the TableRow to the Table
+            HiddenField h = new HiddenField();
+            h.ID = row.Cells[0].Text;
+            h.Value = row.Cells[1].Text;
+            hfs.Add(h);
             table.Rows.Add(row);
         }
-        lit.Text = table.Rows.Count - 1 + "";
+        Literal1.Text = table.Rows.Count - 1 + "";
+    }
+
+    public void printHFS()
+    {
+        for (int i = 0; i < hfs.Count; i++)
+        {
+            HKGManager.Logger.Append(hfs[i].ID + " " + hfs[i].Value);
+        }
     }
 }
