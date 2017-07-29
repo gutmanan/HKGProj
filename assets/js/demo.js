@@ -456,7 +456,7 @@ demo = {
     	});
 	},
 
-	showSwal: function(type){
+    showSwal: function (type) {
     	if(type == 'basic'){
         	swal("Here's a message!");
 
@@ -510,9 +510,9 @@ demo = {
             	   timer: 2000,
             	   showConfirmButton: false
                 });
-    	} else if(type == 'input-field'){
+        } else if (type == 'input-field') {
             swal({
-                  title: 'Input something',
+                  title: 'Please provide new opinion',
                   html: '<p><input id="input-field" class="form-control">',
                   showCancelButton: true,
                   closeOnConfirm: false,

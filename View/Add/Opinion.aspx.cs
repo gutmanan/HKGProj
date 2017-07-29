@@ -52,7 +52,7 @@ public partial class Add_Opinion : System.Web.UI.Page
             row.Cells.Add(headerCell);
         }
         TableHeaderCell Cell = new TableHeaderCell();
-        Cell.Text = "Assign";
+        Cell.Text = "Actions";
         row.Cells.Add(Cell);
         table.Rows.Add(row);
 
@@ -67,19 +67,39 @@ public partial class Add_Opinion : System.Web.UI.Page
                 row.Cells.Add(cell);
             }
             TableCell cell1 = new TableCell();
+            table.EnableViewState = false;
             HyperLink hl = new HyperLink()
             {
-                Text = string.Format("<img src='../assets/img/icons/edit.png' />"),
+                Text = string.Format("<i class='fa fa-image'></i>"),
                 NavigateUrl = "#TB_inline?height=200&width=300&inlineId=myOnPageContent",
                 CssClass = "btn btn-simple btn-info btn-icon table-action view",
-                ToolTip = "View",
-
+                ToolTip = "View"
             };
+            HyperLink h2 = new HyperLink()
+            {
+                Text = string.Format("<i class='fa fa-edit'></i>"),
+                CssClass = "btn btn-simple btn-warning btn-icon table-action edit",
+                ToolTip = "Edit"
+            };
+            HyperLink h3 = new HyperLink()
+            {
+                Text = string.Format("<i class='fa fa-remove'></i>"),
+                CssClass = "btn btn-simple btn-danger btn-icon table-action remove",
+                ToolTip = "Remove"
+            };
+            h2.Attributes.Add("onclick", "demo.showSwal('input-field')");
+            h3.Attributes.Add("onclick", "demo.showSwal('warning-message-and-confirmation')");
             cell1.Controls.Add(hl);
+            HyperLink s1 = new HyperLink() { Text = " " };
+            cell1.Controls.Add(s1);
+            cell1.Controls.Add(h2);
+            HyperLink s2 = new HyperLink() { Text = " " };
+            cell1.Controls.Add(s2);
+            cell1.Controls.Add(h3);
             row.Cells.Add(cell1);
             // Add the TableRow to the Table
             table.Rows.Add(row);
         }
-        lit.Text = table.Rows.Count-1 + "";
+        lit.Text = table.Rows.Count - 1 + "";
     }
 }
