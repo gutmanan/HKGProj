@@ -205,7 +205,7 @@
                     <div class='form-group'>
                         <br />
                         <div class="footer text-center">
-                            <asp:Button runat="server" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" Text="Add Kid" type='submit'></asp:Button>
+                            <asp:Button runat="server" ID="addKidButton" OnClick="addKidButton_Click" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" Text="Add Kid" type='submit'></asp:Button>
                             <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
