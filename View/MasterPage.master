@@ -20,10 +20,29 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="<%= Page.ResolveUrl("~/assets/css/pe-icon-7-stroke.css")%>" rel="stylesheet" />
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
 </head>
 <body class="slider-primary">
+    <script>
+        function showNotification(from, align, msg, col, ico) {
+            color = col;
+
+            $.notify({
+                icon: "pe-7s-" + ico,
+                message: new String(msg).valueOf()
+
+            }, {
+                    type: type[color],
+                    timer: 4000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            return false;
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
     <div class="wrapper">
         <div class="sidebar" data-color="orange" data-image='<%=ResolveUrl("~/assets/img/full-screen-image-3.jpg")%>'>
             <div class="logo">
@@ -72,9 +91,7 @@
                         </a>
                         <div class="collapse" id="SignedFor">
                             <ul class="nav">
-                                <li><a href='<%=ResolveUrl("~/View/Add/SignedFor.aspx")%>'>Add</a></li>
-                                <li><a href='<%=ResolveUrl("~/View/Update/SignedFor.aspx")%>'>Update</a></li>
-                                <li><a href='<%=ResolveUrl("~/View/Remove/SignedFor.aspx")%>'>Remove</a></li>
+                                <li><a href='<%=ResolveUrl("~/View/Add/SignedFor.aspx")%>'>Activity</a></li>
                             </ul>
                         </div>
                     </li>
@@ -91,15 +108,21 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/View/ActivityCal.aspx">
+                        <a href='<%=ResolveUrl("~/View/ActivityCal.aspx")%>'>
                             <i class="pe-7s-date"></i>
                             <p>Calendar</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href='<%=ResolveUrl("~/View/Queries.aspx")%>'>
+                            <i class="pe-7s-news-paper"></i>
+                            <p>Queries</p>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="main-panel">
+        <form class="main-panel" runat="server">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
@@ -117,20 +140,16 @@
                         </button>
                         <a class="navbar-brand" href="#">Dashboard</a>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <form class="navbar-form navbar-left navbar-search-form" role="search">
+                    <div class="collapse navbar-collapse" id="myDiv">
+                        <div class="navbar-form navbar-left navbar-search-form" role="search">
+                            <asp:Button runat="server" ID="Import" Text="" Style="display: none;" OnClick="Import_Click" />
+                            <asp:HiddenField ID="booll" runat="server" Value="0" />
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 <input type="text" value="" class="form-control" placeholder="Search...">
                             </div>
-                        </form>
+                        </div>
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="charts.html">
-                                    <i class="fa fa-line-chart"></i>
-                                    <p>Stats</p>
-                                </a>
-                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-gavel"></i>
@@ -139,27 +158,27 @@
                                     <b class="caret"></b>
                                     </p>
                                 </a>
+                                <script>
+                                    function myFunction() {
+                                        setTimeout(function () {
+                                            document.getElementById("Import").click();
+                                        }, 4000)
+                                        var msg = ''
+                                        var currentVal = document.getElementById('booll').getAttribute('value')
+                                        if (currentVal == new String("0").valueOf()) {
+                                            msg = 'Trainings CSV Found and Successfully imported to the database!'
+                                            showNotification('top', 'center', msg, 2, 'cloud-upload');
+                                        } else {
+                                            msg = 'Trainings CSV not found or already imported to the database!'
+                                            showNotification('top', 'center', msg, 4, 'close-circle');
+                                        }
+                                    }
+                                </script>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Import trainings</a></li>
+                                    <li>
+                                        <a href="#" id="ImportTrainings" runat="server" onclick="return myFunction(); return false;">Import Trainings</a>
                                     <li class="divider"></li>
-                                    <li><a href="#">Import trainings for assistant</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-md hidden-lg">
-                                        Notifications
-    								<b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Notification 1</a></li>
-                                    <li><a href="#">Notification 2</a></li>
-                                    <li><a href="#">Notification 3</a></li>
-                                    <li><a href="#">Notification 4</a></li>
-                                    <li><a href="#">Another notification</a></li>
+                                    <li><a href="#">Export Trainings</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown dropdown-with-icons">
@@ -173,25 +192,10 @@
                                 <ul class="dropdown-menu dropdown-with-icons">
                                     <li>
                                         <a href="#">
-                                            <i class="pe-7s-mail"></i>Messages
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="pe-7s-help1"></i>Help Center
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
                                             <i class="pe-7s-tools"></i>Settings
                                         </a>
                                     </li>
                                     <li class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="pe-7s-lock"></i>Lock Screen
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href='<%=ResolveUrl("~/View/Login.aspx")%>' class="text-danger">
                                             <i class="pe-7s-close-circle"></i>
@@ -224,6 +228,26 @@
                     <p class="copyright pull-right">&copy; 2017 <a href="http://www.shaigutman.com">Shai Gutman & Yair Etzion</a>, made for databases course</p>
                 </div>
             </footer>
+        </form>
+    </div>
+
+    <div class="sweet-container">
+        <div class="sweet-overlay" tabindex="-1"></div>
+        <div class="sweet-alert" style="display: none" tabindex="-1">
+            <div class="icon error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div>
+            <div class="icon warning"><span class="body"></span><span class="dot"></span></div>
+            <div class="icon info"></div>
+            <div class="icon success">
+                <span class="line tip"></span><span class="line long"></span>
+                <div class="placeholder"></div>
+                <div class="fix"></div>
+            </div>
+            <img class="sweet-image">
+            <h2>Title</h2>
+            <div class="sweet-content">Text</div>
+            <hr class="sweet-spacer">
+            <button class="sweet-confirm">OK</button>
+            <button class="sweet-cancel">Cancel</button>
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/View/MasterPage.master" AutoEventWireup="true" CodeFile="OpinionAct.aspx.cs" Inherits="View_Add_Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/View/MasterPage.master" AutoEventWireup="true" CodeFile="Queries.aspx.cs" Inherits="View_Default2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -88,13 +88,13 @@
     </script>
     <div class='container'>
         <div class='panel panel-warning dialog-panel'>
-            <div class='panel-heading'>Manage Opinions</div>
+            <div class='panel-heading'>Queries</div>
             <div class='panel-body'>
                 <div class='form-horizontal' role='form'>
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Activity Opinions</h4>
-                            <p class="category">You can view, add, edit &amp; remove opinions</p>
+                            <h4 class="title">View Queries</h4>
+                            <p class="category">You can view, save &amp; print queries</p>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -102,19 +102,25 @@
                                 </asp:ScriptManager>
                                 <br />
                                 <div class='form-group'>
-                                    <label class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Activity</label>
-                                    <div class='col-md-2'>
-                                        <div class='form-group internal'>
-                                            <asp:ListBox ID="ACTBox" CssClass="form-control" OnSelectedIndexChanged="ACTBox_SelectedIndexChanged"
+                                    <div class="content">
+                                        <label class='control-label col-md-2 col-md-offset-0'>Query</label>
+                                        <div class="col-md-2">
+                                            <asp:ListBox ID="QueryBox" CssClass="form-control" OnSelectedIndexChanged="QueryBox_SelectedIndexChanged"
                                                 AutoPostBack="true" runat="server" Rows="1"></asp:ListBox>
                                             <p>
                                                 <asp:RequiredFieldValidator runat="server"
-                                                    ControlToValidate="ACTBox"
-                                                    ErrorMessage="Activity Is Required"
+                                                    ControlToValidate="QueryBox"
+                                                    ErrorMessage="Query Is Required"
                                                     Display="Dynamic">
                                                 </asp:RequiredFieldValidator>
                                             </p>
                                         </div>
+                                        <asp:HyperLink runat="server" CausesValidation="true" class="btn btn-warning btn-fill" type='submit'>
+                                                <i class='fa fa-download'></i>
+                                        </asp:HyperLink>
+                                        <asp:HyperLink runat="server" CausesValidation="true" class="btn btn-danger btn-fill" type='submit'>
+                                                <i class='fa fa-print'></i>
+                                        </asp:HyperLink>
                                     </div>
                                 </div>
                                 <div class="content">
@@ -122,37 +128,28 @@
                                         <!--Here you can write extra buttons/actions for the toolbar              -->
                                     </div>
                                     <div class="fresh-datatables">
-                                        <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                        <div id="datatables_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <div class="dataTables_length" id="datatable_length">
-                                                        <label>
-                                                            Showing                                                            
-                                                                            <asp:Literal runat="server" ID="Literal1"></asp:Literal>
-                                                            entries</label>
+                                                    <div class="dataTables_length" id="datatables_length">
+                                                        <label>Showing <asp:Literal runat="server" ID="lit"></asp:Literal> entries</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div id="datatable_filter" class="dataTables_filter">
+                                                    <div id="datatables_filter" class="dataTables_filter">
                                                         <label>
                                                             <input type="search" class="form-control input-sm" placeholder="Search records" aria-controls="datatables"></label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <asp:Table runat="server" ID="Table1" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
+                                            <asp:Table runat="server" ID="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
                                             </asp:Table>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- end content-->
                             </div>
                             <!-- end col-md-12 -->
-                        </div>
-                        <div class='form-group'>
-                            <br />
-                            <div class="footer text-center">
-                                <asp:Button runat="server" CausesValidation="true" OnClick="Unnamed_Click" class="btn btn-warning btn-fill btn-wd" Text="Add Opinion" type='submit'></asp:Button>
-                                <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
-                            </div>
                         </div>
                     </div>
                 </div>

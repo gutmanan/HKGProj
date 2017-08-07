@@ -3,121 +3,142 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="Server">
+    <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
+    <script type="text/javascript">
+        function initDashboardPageCharts() {
+            /*   **************** World Map ********************    */
+            DrawMap();
+            /*   **************** Pie Chart ********************    */
+            DrawPie();
+            /*   **************** Line Chart ********************    */
+            DrawGraph();
+            /*   **************** Bar Chart ********************    */
+            DrawBar();
+            /*   **************** Line Chart ********************    */
+            DrawLine();
+        }
+    </script>
+    <script type="text/javascript">
+        function DrawPie() {
+            PageMethods.DrawPie(OnSuccess);
+        }
+        function OnSuccess(response, userContext, methodName) {
+            var res = response.split(",").map(Number);
+            var data = {
+                series: res
+            };
+
+            var sum = function (a, b) { return a + b };
+
+            Chartist.Pie('#chartPie', data, {
+                labelInterpolationFnc: function (value) {
+                    return Math.round(value / data.series.reduce(sum) * 100) + '%';
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function DrawMap() {
+            var mapData = {
+                "IL": 3000,
+            };
+
+            $('#worldMap').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: "transparent",
+                zoomOnScroll: false,
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 0.9,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 0
+                    }
+                },
+
+                series: {
+                    regions: [{
+                        values: mapData,
+                        scale: ["#AAAAAA", "#444444"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function DrawGraph() {
+            Chartist.Line('#chartGraph', {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8],
+                series: [
+                    [5, 9, 7, 8, 5, 3, 5, 4],
+                    [1, 4, 7, 8, 4, 5, 2, 1]
+                ]
+            }, {
+                    low: 0,
+                    showArea: true
+                });
+        }
+    </script>
+    <script type="text/javascript">
+        function DrawBar() {
+            var data = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                series: [
+                    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+                    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+                ]
+            };
+
+            var options = {
+                seriesBarDistance: 10
+            };
+
+            var responsiveOptions = [
+                ['screen and (max-width: 640px)', {
+                    seriesBarDistance: 5,
+                    axisX: {
+                        labelInterpolationFnc: function (value) {
+                            return value[0];
+                        }
+                    }
+                }]
+            ];
+            Chartist.Bar('#chartActivity', data, options, responsiveOptions);
+        }
+    </script>
+    <script type="text/javascript">
+        function DrawLine() {
+            Chartist.Line('#chartHours', {
+                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                series: [
+                    [12, 9, 7, 8, 5],
+                    [2, 1, 3.5, 7, 3],
+                    [1, 3, 4, 5, 6]
+                ]
+            }, {
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 40
+                    }
+                });
+        }
+    </script>
     <div class="content">
+        <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card ">
-                        <div class="header">
-                            <h4 class="title">Global Sales by Top Locations</h4>
-                            <p class="category">All products that were shipped</p>
-                        </div>
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/US.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>USA</td>
-                                                    <td class="text-right">2.920
-                                                    </td>
-                                                    <td class="text-right">53.23%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/DE.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>Germany</td>
-                                                    <td class="text-right">1.300
-                                                    </td>
-                                                    <td class="text-right">20.43%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/AU.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>Australia</td>
-                                                    <td class="text-right">760
-                                                    </td>
-                                                    <td class="text-right">10.35%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/GB.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>United Kingdom</td>
-                                                    <td class="text-right">690
-                                                    </td>
-                                                    <td class="text-right">7.87%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/RO.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>Romania</td>
-                                                    <td class="text-right">600
-                                                    </td>
-                                                    <td class="text-right">5.94%
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="flag">
-                                                            <img src="<%= Page.ResolveUrl("~/assets/img/flags/BR.png")%>" />
-                                                        </div>
-                                                    </td>
-                                                    <td>Brasil</td>
-                                                    <td class="text-right">550
-                                                    </td>
-                                                    <td class="text-right">4.34%
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-md-offset-1">
-                                    <div id="worldMap" style="height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Email Statistics</h4>
-                            <p class="category">Last Campaign Performance</p>
+                            <h4 class="title">Profitable Activity </h4>
+                            <asp:Literal runat="server" ID="yearstat"></asp:Literal>
                         </div>
                         <div class="content">
-                            <div id="chartEmail" class="ct-chart "></div>
+                            <div id="chartPie" class="ct-chart "></div>
                         </div>
                         <div class="footer">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i>Open
-                                    <i class="fa fa-circle text-danger"></i>Bounce
-                                    <i class="fa fa-circle text-warning"></i>Unsubscribe
-                            </div>
                             <hr>
                             <div class="stats">
                                 <i class="fa fa-clock-o"></i>Campaign sent 2 days ago
@@ -126,23 +147,18 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card ">
                         <div class="header">
-                            <h4 class="title">Users Behavior</h4>
-                            <p class="category">24 Hours performance</p>
+                            <h4 class="title">2014 Sales</h4>
+                            <asp:Literal runat="server" ID="GraphLit"></asp:Literal>
                         </div>
                         <div class="content">
-                            <div id="chartHours" class="ct-chart"></div>
+                            <div id="chartGraph" class="ct-chart"></div>
                         </div>
                         <div class="footer">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i>Open
-                                    <i class="fa fa-circle text-danger"></i>Click
-                                    <i class="fa fa-circle text-warning"></i>Click Second Time
-                            </div>
                             <hr>
                             <div class="stats">
-                                <i class="fa fa-history"></i>Updated 3 minutes ago
+                                <i class="fa fa-check"></i>Data information certified
                             </div>
                         </div>
                     </div>
@@ -171,120 +187,46 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card ">
+                    <div class="card">
                         <div class="header">
-                            <h4 class="title">Tasks</h4>
-                            <p class="category">Backend development</p>
+                            <h4 class="title">Users Behavior</h4>
+                            <p class="category">24 Hours performance</p>
                         </div>
                         <div class="content">
-                            <div class="table-full-width">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                </label>
-                                            </td>
-                                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                </label>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                </label>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                </label>
-                                            </td>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                </label>
-                                            </td>
-                                            <td>Read "Following makes Medium better"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                </label>
-                                            </td>
-                                            <td>Unfollow 5 enemies from twitter</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div id="chartHours" class="ct-chart"></div>
                         </div>
                         <div class="footer">
+                            <div class="legend">
+                                <i class="fa fa-circle text-info"></i>Open
+                                    <i class="fa fa-circle text-danger"></i>Click
+                                    <i class="fa fa-circle text-warning"></i>Click Second Time
+                            </div>
                             <hr>
                             <div class="stats">
                                 <i class="fa fa-history"></i>Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="header">
+                            <h4 class="title">Distribution of streets</h4>
+                            <p class="category">Top 10 streets</p>
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="table-responsive">
+                                        <asp:Table runat="server" ID="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
+                                        </asp:Table>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-1">
+                                    <div id="worldMap" style="height: 300px;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -294,12 +236,13 @@
     </div>
     <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
     <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+    <script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="../../assets/js/sweetalert2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
-            demo.initDashboardPageCharts();
-            demo.initVectorMap();
-
+            initDashboardPageCharts();
         });
     </script>
 

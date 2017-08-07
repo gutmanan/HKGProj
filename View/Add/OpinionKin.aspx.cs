@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Add_Opinion : System.Web.UI.Page
 {
+    private static String SelectedKG;
     private static List<HiddenField> hfs = new List<HiddenField>();
 
     protected void Page_Load(object sender, EventArgs e)
@@ -19,6 +21,17 @@ public partial class Add_Opinion : System.Web.UI.Page
             FillKGBox();
             lit.Text = "0";
         }
+        else
+        {
+            KGBox.SelectedIndexChanged -= new EventHandler(this.KGBox_SelectedIndexChanged);
+            Session["SelectedListItem"] = KGBox.SelectedValue;
+            if (Session["SelectedListItem"] != null)
+            {
+                KGBox.SelectedValue = (string)Session["SelectedListItem"];
+                this.KGBox_SelectedIndexChanged(sender, e);
+            }
+        }
+
     }
 
     public void FillKGBox()
@@ -89,8 +102,8 @@ public partial class Add_Opinion : System.Web.UI.Page
                 ToolTip = "Remove"
             };
             h1.Attributes.Add("onclick", "showSwal('basic','" + row.Cells[1].Text + "');");
-            h2.Attributes.Add("onclick", "showSwal('input-field','" + row.Cells[0].Text + "');");
-            h3.Attributes.Add("onclick", "showSwal('warning-message-and-confirmation');");
+            h2.Attributes.Add("onclick", "showSwal('update-field','" + row.Cells[0].Text + "');");
+            h3.Attributes.Add("onclick", "showSwal('warning-message-and-confirmation','" + row.Cells[0].Text + "');");
             cell1.Controls.Add(h1);
             HyperLink s1 = new HyperLink() { Text = " " };
             cell1.Controls.Add(s1);
@@ -107,7 +120,7 @@ public partial class Add_Opinion : System.Web.UI.Page
             table.Rows.Add(row);
         }
         lit.Text = table.Rows.Count - 1 + "";
-
+        SelectedKG = KGBox.SelectedValue;
     }
     public void printHFS()
     {
@@ -115,5 +128,64 @@ public partial class Add_Opinion : System.Web.UI.Page
         {
             HKGManager.Logger.Append(hfs[i].ID + " " + hfs[i].Value);
         }
+    }
+
+    [System.Web.Services.WebMethod]
+    public static string DeleteSelectedOpinion(string id)
+    {
+        try
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("ID", id);
+            DataTable opinions = HKGManager.SQL.executeProc("deleteOpinion", param);
+            return "Opinion was deleted successfully!";
+        }
+        catch (Exception e)
+        {
+            return "Opinion wasn't deleted!";
+        }
+    }
+
+    [System.Web.Services.WebMethod]
+    public static string AddOpinion(string talk, int grade)
+    {
+        try
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("talk", talk);
+            param.Add("grade", grade);
+            param.Add("kindergardenNum", SelectedKG);
+            DataTable opinions = HKGManager.SQL.executeProc("addOpinion", param);
+            return "Opinion was added successfully!";
+        }
+        catch (Exception e)
+        {
+            HKGManager.Logger.Append("     "+SelectedKG);
+            return "Opinion wasn't added!";
+        }
+    }
+
+    [System.Web.Services.WebMethod]
+    public static string UpdateOpinion(string id, string talk, int grade)
+    {
+        try
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("ID", id);
+            param.Add("talk", talk);
+            param.Add("grade", grade);
+            param.Add("kindergardenNum", SelectedKG);
+            DataTable opinions = HKGManager.SQL.executeProc("editKGOpinion", param);
+            return "Opinion was updated successfully!";
+        }
+        catch (Exception e)
+        {
+            HKGManager.Logger.Append("     " + SelectedKG);
+            return "Opinion wasn't updated!";
+        }
+    }
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+        ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('input-field');", true);
     }
 }

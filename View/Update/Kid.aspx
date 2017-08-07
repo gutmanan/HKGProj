@@ -9,7 +9,7 @@
         <div class='panel panel-warning dialog-panel'>
             <div class='panel-heading'>Update Kid</div>
             <div class='panel-body'>
-                <form class='form-horizontal' role='form' runat="server">
+                <div class='form-horizontal' role='form'>
                     <div class='form-group'>
                         <label class='control-label col-md-2 col-md-offset-0' for='id_title'></label>
                     </div>
@@ -214,7 +214,7 @@
                             <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -1,16 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/View/MasterPage.master" AutoEventWireup="true" CodeFile="SignedFor.aspx.cs" Inherits="Add_SignedFor" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    Homepage
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="mainContent" runat="Server">
     <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
-
+    <script type="text/javascript">
+        function showSwal(type, param) {
+            if (type == 'basic') {
+                swal(param);
+            }
+        }
+    </script>
     <div class='container'>
         <div class='panel panel-warning dialog-panel'>
-            <div class='panel-heading'>Sign up a kid for an activity</div>
+            <div class='panel-heading'>Manage Signfors</div>
             <div class='panel-body'>
-                <form class='form-horizontal' role='form' runat="server" id="FormView">
+                <div class='form-horizontal' role='form' id="FormView">
                     <div class='form-group'>
                         <label class='control-label col-md-2 col-md-offset-0' for='id_title'></label>
                     </div>
@@ -70,13 +75,20 @@
                     <div class='form-group'>
                         <br />
                         <div class="footer text-center">
-                            <asp:Button runat="server" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" Text="Update Kid" type='submit'></asp:Button>
+                            <asp:Button runat="server" ID="Update" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" OnClick="Update_Click" Text="Update" type='submit'></asp:Button>
                             <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+    <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+    <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+    <script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="../../assets/js/sweetalert2.js"></script>
+
 </asp:Content>
 

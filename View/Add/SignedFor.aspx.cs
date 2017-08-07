@@ -13,7 +13,16 @@ public partial class Add_SignedFor : System.Web.UI.Page
         if (!IsPostBack)
         {
             FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
+            Update.OnClientClick += new EventHandler(this.Update_Click);
             lit.Text = "0";
+        }
+        else
+        {
+            Session["SelectedKid"] = id.Text;
+            if (Session["SelectedKid"] != null)
+            {
+                id.Text = (string)Session["SelectedKid"];
+            }
         }
     }
 
@@ -62,13 +71,41 @@ public partial class Add_SignedFor : System.Web.UI.Page
                 row.Cells.Add(cell);
             }
             TableCell c = new TableCell();
-            c.Controls.Add(new CheckBox());
+            CheckBox cb = new CheckBox();
+            cb.Checked = true;
+            c.Controls.Add(cb);
             row.Cells.Add(c);
             // Add the TableRow to the Table
             table.Rows.Add(row);
         }
-        lit.Text = table.Rows.Count-1 + "";
+        lit.Text = table.Rows.Count - 1 + "";
     }
 
+    public void checkToReg()
+    {
+        foreach (TableRow row in datatables.Rows)
+        {
+            var cell = row.Cells[10];
+            foreach (Control control in cell.Controls)
+            {
+                var checkBox = control as CheckBox;
+                if (checkBox != null)
+                {
+                    if (checkBox.Checked)
+                    {
+                        TableCell c = checkBox.Parent as TableCell;
+                        TableRow r = c.Parent as TableRow;
+                        int index = datatables.Rows.GetRowIndex(row);
+                        ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('basic','" + index + "');", true);
+                    }
+                }
+            }
+        }
+    }
     private List<String> checks = new List<string>();
+
+    protected void Update_Click(object sender, EventArgs e)
+    {
+        checkToReg();
+    }
 }

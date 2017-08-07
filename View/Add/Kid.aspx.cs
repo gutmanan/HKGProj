@@ -13,13 +13,14 @@ public partial class Kids : System.Web.UI.Page
         if (!IsPostBack)
         {
             KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
+            radioGender.SelectedIndexChanged += new EventHandler(this.radioGender_SelectedIndexChanged);
             FillKGBox();
         }
     }
 
     public void FillKGBox()
     {
-        DataTable kindergartens = HKGManager.SQL.executeProc("getKindergartens", null);
+        DataTable kindergartens = HKGManager.SQL.executeProc("getPrivate", null);
         foreach (DataRow row in kindergartens.Rows)
         {
             ListItem li = new ListItem(row["name"].ToString());
@@ -30,15 +31,20 @@ public partial class Kids : System.Web.UI.Page
 
     public void KGBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-        CBox.Items.Clear();
-        Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("ID", KGBox.SelectedItem.Value);
-        DataTable classes = HKGManager.SQL.executeProc("getClasses", param);
-        foreach (DataRow row in classes.Rows)
+
+    }
+
+    protected void radioGender_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (radioGender.SelectedIndex == 1)
         {
-            ListItem li = new ListItem(row["name"].ToString());
-            li.Value = row["number"].ToString();
-            CBox.Items.Add(li);
+            kinLab.Visible = false;
+            KGBox.Visible = false;
+        }
+        else
+        {
+            kinLab.Visible = true;
+            KGBox.Visible = true;
         }
     }
 }

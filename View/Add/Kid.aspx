@@ -9,7 +9,7 @@
         <div class='panel panel-warning dialog-panel'>
             <div class='panel-heading'>Add Kid</div>
             <div class='panel-body'>
-                <form class='form-horizontal' role='form' runat="server">
+                <div class='form-horizontal' role='form'>
                     <div class='form-group'>
                         <label class='control-label col-md-2 col-md-offset-0' for='id_title'></label>
                     </div>
@@ -176,7 +176,18 @@
                         </div>
                     </div>
                     <div class='form-group'>
-                        <label class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Kindergarten</label>
+                        <label class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Type </label>
+                        <div class='col-md-2'>
+                            <div class='form-group internal'>
+                                <asp:RadioButtonList AutoPostBack="true" ID="radioGender" OnSelectedIndexChanged="radioGender_SelectedIndexChanged" runat="server">
+                                    <asp:ListItem Text=" Private" Value="1" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text=" Public" Value="2"></asp:ListItem>
+                                </asp:RadioButtonList>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <asp:label runat="server" ID="kinLab" class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Kindergarten</asp:label>
                         <div class='col-md-2'>
                             <div class='form-group internal'>
                                 <asp:ListBox ID="KGBox" CssClass="form-control" OnSelectedIndexChanged="KGBox_SelectedIndexChanged"
@@ -190,19 +201,6 @@
                                 </p>
                             </div>
                         </div>
-                        <label class='control-label col-md-1 col-md-offset-0' for='id_title'>Class</label>
-                        <div class='col-md-2'>
-                            <div class='form-group internal'>
-                                <asp:ListBox ID="CBox" CssClass="form-control" runat="server" Rows="1"></asp:ListBox>
-                                <p>
-                                    <asp:RequiredFieldValidator runat="server"
-                                        ControlToValidate="CBox"
-                                        ErrorMessage="Class Is Required"
-                                        Display="Dynamic">
-                                    </asp:RequiredFieldValidator>
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     <div class='form-group'>
                         <br />
@@ -211,7 +209,7 @@
                             <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -11,6 +11,25 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         if (HKGManager.AuthUser == null) userLogged.Text = "Admin";
         else userLogged.Text = HKGManager.AuthUser.ToString();
+        if (!IsPostBack)
+        {
+            Import.OnClientClick += new EventHandler(this.Import_Click);
+        }
     }
 
+    protected void Import_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            HKGManager.CSVReader.readTrainingsCSV();
+            HKGManager.CSVReader.readTrainingsForAssistantCSV();
+            booll.Value = "0";
+            HKGManager.Logger.Append("Successfully imported " + booll.Value);
+        }
+        catch (Exception ex)
+        {
+            booll.Value = "1";
+            HKGManager.Logger.Append("Faild to import " + booll.Value);
+        }
+    }
 }
