@@ -83,12 +83,18 @@
     </script>
     <script type="text/javascript">
         function DrawBar() {
+            PageMethods.DrawBar(OnSuc);
+        }
+        function OnSuc(response, userContext, methodName) {
+            swal("Sukaaaaa");
+
+            var res1 = response.split(" ");
+            var res2 = res1[1].split(",").map(Number);
+            var res3 = res1[2].split(",").map(Number);
+
             var data = {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                series: [
-                    [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-                    [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
-                ]
+                labels: res1[0],
+                series: [res2, res3]
             };
 
             var options = {
@@ -109,21 +115,21 @@
         }
     </script>
     <script type="text/javascript">
-        function DrawLine() {
-            Chartist.Line('#chartHours', {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                series: [
-                    [12, 9, 7, 8, 5],
-                    [2, 1, 3.5, 7, 3],
-                    [1, 3, 4, 5, 6]
-                ]
-            }, {
-                    fullWidth: true,
-                    chartPadding: {
-                        right: 40
-                    }
-                });
-        }
+            function DrawLine() {
+                Chartist.Line('#chartHours', {
+                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                    series: [
+                        [12, 9, 7, 8, 5],
+                        [2, 1, 3.5, 7, 3],
+                        [1, 3, 4, 5, 6]
+                    ]
+                }, {
+                        fullWidth: true,
+                        chartPadding: {
+                            right: 40
+                        }
+                    });
+            }
     </script>
     <div class="content">
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>

@@ -9,7 +9,6 @@ using System.Web.UI.WebControls;
 public partial class View_Default2 : System.Web.UI.Page
 {
     private static String SelectedQuery;
-    private static List<HiddenField> hfs = new List<HiddenField>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,11 +28,13 @@ public partial class View_Default2 : System.Web.UI.Page
                 QueryBox.SelectedValue = (string)Session["SelectedListItem"];
                 this.QueryBox_SelectedIndexChanged(sender, e);
             }
-        }*/
+        }
+        */
     }
 
     public void FillQueryBox()
     {
+        ListItem l = new ListItem("Select Query"); l.Value = "0"; QueryBox.Items.Add(l);
         ListItem la = new ListItem("Query 1"); la.Value = "a"; QueryBox.Items.Add(la);
         ListItem lb = new ListItem("Query 2"); lb.Value = "b"; QueryBox.Items.Add(lb);
         ListItem lc = new ListItem("Query 3"); lc.Value = "c"; QueryBox.Items.Add(lc);
@@ -53,31 +54,31 @@ public partial class View_Default2 : System.Web.UI.Page
                 GenerateTable(Query1, datatables);
                 break;
             case "b":
-                DataTable Query2 = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
+                DataTable Query2 = HKGManager.SQL.executeProc("Query2", null);
                 GenerateTable(Query2, datatables);
                 break;
-            /*
-        case "c":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-        case "d":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-        case "e":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-        case "f":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-        case "g":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-        case "h":
-            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", null);
-            GenerateTable(opinions, datatables); break;
-            */
+            case "c":
+                DataTable Query3 = HKGManager.SQL.executeProc("Query3", null);
+                GenerateTable(Query3, datatables);
+                break;
+            case "d":
+                DataTable Query4 = HKGManager.SQL.executeProc("Query4", null);
+                GenerateTable(Query4, datatables);
+                break;
+            case "e":
+                DataTable Query5 = HKGManager.SQL.executeProc("Query5", null);
+                GenerateTable(Query5, datatables);
+                break;
+            case "f":
+                DataTable Query6 = HKGManager.SQL.executeProc("Query6", null);
+                GenerateTable(Query6, datatables); break;
+            case "g":
+                DataTable Query7 = HKGManager.SQL.executeProc("Query7", null);
+                GenerateTable(Query7, datatables); break;
+            case "h":
+                DataTable Query8 = HKGManager.SQL.executeProc("Query8", null);
+                GenerateTable(Query8, datatables); break;
             default:
-                //monthString = "Invalid month";
                 break;
         }
     }
@@ -108,10 +109,6 @@ public partial class View_Default2 : System.Web.UI.Page
                 row.Cells.Add(cell);
             }
             // Add the TableRow to the Table
-            HiddenField h = new HiddenField();
-            h.ID = row.Cells[0].Text;
-            h.Value = row.Cells[1].Text;
-            hfs.Add(h);
             table.Rows.Add(row);
         }
         lit.Text = table.Rows.Count - 1 + "";

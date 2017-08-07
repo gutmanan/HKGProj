@@ -8,6 +8,10 @@ using System.Web.UI.WebControls;
 
 public partial class Add_SignedFor : System.Web.UI.Page
 {
+    private static string selectedID;
+    private static string selectedKinID;
+    private static string selectedClassID;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -30,14 +34,16 @@ public partial class Add_SignedFor : System.Web.UI.Page
     {
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("ID", id.Text);
-        DataTable kid = HKGManager.SQL.executeProc("getKid", param);
-        Dictionary<string, object> para = new Dictionary<string, object>();
-        foreach (DataRow row in kid.Rows)
+        DataTable kidInfo = HKGManager.SQL.executeProc("getKid", param);
+        foreach (DataRow row in kidInfo.Rows)
         {
-            para.Add("kindergardenID", row["kindergardenID"].ToString());
-            para.Add("classNumber", row["classNumber"].ToString());
+            selectedID = row["ID"].ToString();
+            selectedKinID = row["kindergardenID"].ToString();
+            selectedClassID = row["classNumber"].ToString();
         }
-        DataTable activities = HKGManager.SQL.executeProc("activityInKindergarden", para);
+        Dictionary<string, object> para = new Dictionary<string, object>();
+        para.Add("kidID", id.Text);
+        DataTable activities = HKGManager.SQL.executeProc("activityForKid", para);
         GenerateTable(activities);
     }
 
@@ -55,9 +61,6 @@ public partial class Add_SignedFor : System.Web.UI.Page
             headerCell.Text = dt.Columns[j].ColumnName;
             row.Cells.Add(headerCell);
         }
-        TableHeaderCell Cell = new TableHeaderCell();
-        Cell.Text = "Assign";
-        row.Cells.Add(Cell);
         table.Rows.Add(row);
 
         //Add the Column values
@@ -67,14 +70,19 @@ public partial class Add_SignedFor : System.Web.UI.Page
             for (int j = 0; j < dt.Columns.Count; j++)
             {
                 TableCell cell = new TableCell();
-                cell.Text = dt.Rows[i][j].ToString();
+                if (j != dt.Columns.Count-1)
+                    cell.Text = dt.Rows[i][j].ToString();
+                else
+                {
+                    CheckBox cb = new CheckBox();
+                    cb.Attributes.Add("OnCheckedChanged", "AddSignedFor('"+ dt.Rows[i][0].ToString() + "'," +
+                        "'" + selectedKinID + "');");
+                    if (int.Parse(dt.Rows[i][j].ToString()) == 1)
+                        cb.Checked = true;
+                    cell.Controls.Add(cb);
+                }
                 row.Cells.Add(cell);
             }
-            TableCell c = new TableCell();
-            CheckBox cb = new CheckBox();
-            cb.Checked = true;
-            c.Controls.Add(cb);
-            row.Cells.Add(c);
             // Add the TableRow to the Table
             table.Rows.Add(row);
         }
@@ -107,5 +115,24 @@ public partial class Add_SignedFor : System.Web.UI.Page
     protected void Update_Click(object sender, EventArgs e)
     {
         checkToReg();
+    }
+
+    [System.Web.Services.WebMethod]
+    public static string AddSignedFor(string id, string kinID, string cID, string actID)
+    {
+        try
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("kidID", id);
+            param.Add("kindergardenID", kinID);
+            param.Add("classNumber", cID);
+            param.Add("activityID", actID);
+            DataTable opinions = HKGManager.SQL.executeProc("addKidToSignedFor", param);
+            return "Kid signed for successfully!";
+        }
+        catch (Exception e)
+        {
+            return "Kid wasn't signed!";
+        }
     }
 }
