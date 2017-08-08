@@ -79,7 +79,6 @@
                 eHour += eMinute / 60;
                 eMinute = eMinute % 60;
             }
-            swal(eHour + "  " + eMinute);
             y = today.getFullYear();
             m = today.getMonth();
             d = today.getDate();
