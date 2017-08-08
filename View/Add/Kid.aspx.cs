@@ -61,6 +61,11 @@ public partial class Kids : System.Web.UI.Page
         {
             if (!addKidToPublic())
             {
+                if (checkKid())
+                {
+                    ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('already-message');", true);
+                    return;
+                }
                 valMap.Add("kidID", id.Text);
                 HKGManager.SQL.executeProc("deleteKidFromPersons", valMap);
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
@@ -69,6 +74,17 @@ public partial class Kids : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
 
         }
+    }
+
+    private bool checkKid()
+    {
+        Dictionary<String, Object> valMap = new Dictionary<String, Object>();
+        valMap.Add("ID", id.Text);
+        DataTable kid = HKGManager.SQL.executeProc("getKid", valMap);
+        foreach (DataRow a in kid.Rows)
+            if (a["ID"].ToString().Equals(id.Text))
+                return true;
+        return false;
     }
 
     private bool addKidToPrivate()
@@ -91,7 +107,7 @@ public partial class Kids : System.Web.UI.Page
             valMap.Add("placeInFamily", Int32.Parse(kidPlace.Text));
             valMap.Add("kindergardenID", Int32.Parse(row["ID"].ToString()));
             valMap.Add("classNumber", Int32.Parse(row["Number"].ToString()));
-            valMap.Add("parentID", "000000005");
+            valMap.Add("parentID", HKGManager.AuthUser.id);
             DataTable approved = HKGManager.SQL.executeProc("addNewKid", valMap);
             foreach (DataRow a in approved.Rows)
                 if (a["kidID"].ToString().Equals(id.Text))

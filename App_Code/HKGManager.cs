@@ -36,4 +36,6 @@ public static class HKGManager
         get { return HKGManager.authUser; }
         set { HKGManager.authUser = value; }
     }
+
+
 }

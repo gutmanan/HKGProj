@@ -20,4 +20,10 @@ public class User
     {
         return First_Name + " " + Last_Name;
     }
+
+    public string id
+    {
+        get { return this.ID; }
+        set { this.ID = value; }
+    }
 }

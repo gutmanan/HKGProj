@@ -13,8 +13,12 @@
                 swal("Added!", "Successfully added kid to system!", "success")
 
             } else if (type == 'deleted-message') {
-                swal("Cancelled!", "Faild to add kid to system!", "error")
+                swal("Cancelled!", "There is no class available!", "error")
+            } else if (type == 'already-message') {
+                swal("Cancelled!", "The child is already signed!", "error")
             }
+
+
             return false;
         }
     </script>
