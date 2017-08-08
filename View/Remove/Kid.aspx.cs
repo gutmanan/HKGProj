@@ -17,6 +17,16 @@ public partial class Remove_Kid : System.Web.UI.Page
             FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
             FillKGBox();
         }
+        else
+        {
+            //FindBtn.Enabled = false;
+            Session["SelectedKid"] = id.Text;
+            if (Session["SelectedKid"] != null)
+            {
+                id.Text = (string)Session["SelectedKid"];
+                this.FindBtn_Click(sender, e);
+            }
+        }
     }
     public void FillKGBox()
     {
@@ -76,9 +86,41 @@ public partial class Remove_Kid : System.Web.UI.Page
                 CBox.SelectedValue = row["classNumber"].ToString();
             }
         }
-        else
+    }
+
+    protected void Unnamed_Click(object sender, EventArgs e)
+    {
+        try
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Oops! Invalid ID');", true);
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("kid", id.Text);
+            DataTable addKid = HKGManager.SQL.executeProc("deleteKid", param);
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
+            clear();
         }
+        catch (Exception ex)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "swal(Cancelled, Couldn't delete, error);", true);
+        }
+    }
+
+    public void clear()
+    {
+        id.Text = "";
+        id_first_name.Text = "";
+        id_last_name.Text = "";
+        bDay.Text = "";
+        StreetBox.Text = "";
+        HouseBox.Text = "";
+        LatBox.Text = "";
+        LongBox.Text = "";
+        First_Father.Text = "";
+        Last_Father.Text = "";
+        First_Mother.Text = "";
+        Last_Mother.Text = "";
+        KidPlaceBox.Text = "";
+        KGBox.Items.Clear();
+        CBox.Items.Clear();
+        FillKGBox();
     }
 }

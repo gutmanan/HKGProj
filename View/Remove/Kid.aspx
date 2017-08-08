@@ -4,7 +4,17 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="mainContent" runat="Server">
     <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
+    <script type="text/javascript">
+        function showSwal(type, param) {
+            if (type == 'basic') {
+                swal("Here's a message!");
 
+            } else if (type == 'deleted-message') {
+                swal("Deleted!", "Successfully deleted kid from the system!", "success")
+            }
+            return false;
+        }
+    </script>
     <div class='container'>
         <div class='panel panel-warning dialog-panel'>
             <div class='panel-heading'>Remove Kid</div>
@@ -33,7 +43,7 @@
                             </div>
                         </div>
                         <div class='col-md-2 col-md-offset-0'>
-                            <asp:Button runat="server" CausesValidation="false" class="btn btn-warning btn-fill" ID="FindBtn" Text="Go" OnClick="FindBtn_Click" type='submit'></asp:Button>
+                            <asp:Button runat="server" CausesValidation="false" class="btn btn-warning btn-fill" ID="FindBtn" Text="Go" type='submit'></asp:Button>
                         </div>
                     </div>
                     <div class='form-group'>
@@ -210,7 +220,7 @@
                     <div class='form-group'>
                         <br />
                         <div class="footer text-center">
-                            <asp:Button runat="server" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" Text="Remove Kid" type='submit'></asp:Button>
+                            <asp:Button runat="server" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" OnClick="Unnamed_Click" Text="Remove Kid" type='submit'></asp:Button>
                             <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                         </div>
                     </div>
@@ -218,5 +228,12 @@
             </div>
         </div>
     </div>
+    <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+    <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+    <script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="../../assets/js/sweetalert2.js"></script>
+
 </asp:Content>
 

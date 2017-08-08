@@ -7,17 +7,16 @@
     <script type="text/javascript">
         function showSwal(type, param) {
             if (type == 'basic') {
-                swal(param);
+                swal("Here's a message!");
+
+            } else if (type == 'added-message') {
+                swal("Added!", "You successfully signed kid for activity!", "success")
+
+            } else if (type == 'deleted-message') {
+                swal("Deleted!", "You successfully unsigned kid from activity!", "success")
             }
+            return false;
         }
-    </script>
-        <script type="text/javascript">
-            function AddSignedFor(id, kinID, cID, actID) {
-                PageMethods.AddSignedFor(id, kinID, cID, actID, OnSuccess);
-            }
-            function OnSuccess(response, userContext, methodName) {
-                swal("Success!", response, "success");
-            }
     </script>
     <div class='container'>
         <div class='panel panel-warning dialog-panel'>
@@ -31,6 +30,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <asp:HiddenField id="hiddenBTN" runat="server" />
                                 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
                                 </asp:ScriptManager>
                                 <br />
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <div class='col-md-2 col-md-offset-0'>
-                                        <asp:Button runat="server" class="btn btn-warning btn-fill" CausesValidation="true" ID="FindBtn" Text="Go" OnClick="FindBtn_Click" type='submit'></asp:Button>
+                                        <asp:Button runat="server" class="btn btn-warning btn-fill" CausesValidation="true" ID="FindBtn" Text="Go" type='submit'></asp:Button>
                                     </div>
                                 </div>
                                 <div class="content">
@@ -82,13 +82,6 @@
                                             <asp:Table runat="server" ID="datatables" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" CellSpacing="0" Width="100%" Style="width: 100%;" role="grid" aria-describedby="datatables_info">
                                             </asp:Table>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class='form-group'>
-                                    <br />
-                                    <div class="footer text-center">
-                                        <asp:Button runat="server" ID="Update" CausesValidation="true" class="btn btn-warning btn-fill btn-wd" OnClick="Update_Click" Text="Update" type='submit'></asp:Button>
-                                        <asp:Button runat="server" class="btn btn-danger btn-fill btn-wd" Text="Cancel" type='submit'></asp:Button>
                                     </div>
                                 </div>
                             </div>

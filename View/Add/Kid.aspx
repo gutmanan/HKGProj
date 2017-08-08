@@ -4,7 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="Server">
     <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
+    <script type="text/javascript">
+        function showSwal(type, param) {
+            if (type == 'basic') {
+                swal("Here's a message!");
 
+            } else if (type == 'added-message') {
+                swal("Added!", "Successfully added kid to system!", "success")
+
+            } else if (type == 'deleted-message') {
+                swal("Cancelled!", "Faild to add kid to system!", "error")
+            }
+            return false;
+        }
+    </script>
     <div class='container'>
         <div class='panel panel-warning dialog-panel'>
             <div class='panel-heading'>Add Kid</div>
@@ -187,7 +200,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <asp:label runat="server" ID="kinLab" class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Kindergarten</asp:label>
+                        <asp:Label runat="server" ID="kinLab" class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Kindergarten</asp:Label>
                         <div class='col-md-2'>
                             <div class='form-group internal'>
                                 <asp:ListBox ID="KGBox" CssClass="form-control" OnSelectedIndexChanged="KGBox_SelectedIndexChanged"
@@ -213,5 +226,11 @@
             </div>
         </div>
     </div>
+    <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
+    <script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+    <script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
+
+    <!-- Sweet Alert 2 plugin -->
+    <script src="../../assets/js/sweetalert2.js"></script>
 </asp:Content>
 

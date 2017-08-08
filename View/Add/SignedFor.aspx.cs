@@ -16,16 +16,17 @@ public partial class Add_SignedFor : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            FindBtn.OnClientClick += new EventHandler(this.FindBtn_Click);
-            Update.OnClientClick += new EventHandler(this.Update_Click);
+            //FindBtn.OnClientClick = null;
             lit.Text = "0";
         }
         else
         {
+            //FindBtn.Enabled = false;
             Session["SelectedKid"] = id.Text;
             if (Session["SelectedKid"] != null)
             {
                 id.Text = (string)Session["SelectedKid"];
+                this.FindBtn_Click(sender, e);
             }
         }
     }
@@ -75,8 +76,8 @@ public partial class Add_SignedFor : System.Web.UI.Page
                 else
                 {
                     CheckBox cb = new CheckBox();
-                    cb.Attributes.Add("OnCheckedChanged", "AddSignedFor('"+ dt.Rows[i][0].ToString() + "'," +
-                        "'" + selectedKinID + "');");
+                    cb.AutoPostBack = true;
+                    cb.CheckedChanged += CheckHandler;
                     if (int.Parse(dt.Rows[i][j].ToString()) == 1)
                         cb.Checked = true;
                     cell.Controls.Add(cb);
@@ -89,36 +90,25 @@ public partial class Add_SignedFor : System.Web.UI.Page
         lit.Text = table.Rows.Count - 1 + "";
     }
 
-    public void checkToReg()
+    public void CheckHandler(Object obj, EventArgs e)
     {
-        foreach (TableRow row in datatables.Rows)
+        int index = -1;
+        var checkBox = ((CheckBox)obj);
+        if (checkBox != null)
         {
-            var cell = row.Cells[10];
-            foreach (Control control in cell.Controls)
+            TableCell c = checkBox.Parent as TableCell;
+            TableRow r = c.Parent as TableRow;
+            index = datatables.Rows.GetRowIndex(r);
+            if (index > 0)
             {
-                var checkBox = control as CheckBox;
-                if (checkBox != null)
-                {
-                    if (checkBox.Checked)
-                    {
-                        TableCell c = checkBox.Parent as TableCell;
-                        TableRow r = c.Parent as TableRow;
-                        int index = datatables.Rows.GetRowIndex(row);
-                        ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('basic','" + index + "');", true);
-                    }
-                }
+                if (checkBox.Checked)
+                    AddSignedFor(selectedID, selectedKinID, selectedClassID, datatables.Rows[index].Cells[0].Text);
+                else DeleteSignedFor(selectedID, selectedKinID, selectedClassID, datatables.Rows[index].Cells[0].Text);
             }
         }
     }
-    private List<String> checks = new List<string>();
 
-    protected void Update_Click(object sender, EventArgs e)
-    {
-        checkToReg();
-    }
-
-    [System.Web.Services.WebMethod]
-    public static string AddSignedFor(string id, string kinID, string cID, string actID)
+    public void AddSignedFor(string id, string kinID, string cID, string actID)
     {
         try
         {
@@ -127,12 +117,31 @@ public partial class Add_SignedFor : System.Web.UI.Page
             param.Add("kindergardenID", kinID);
             param.Add("classNumber", cID);
             param.Add("activityID", actID);
-            DataTable opinions = HKGManager.SQL.executeProc("addKidToSignedFor", param);
-            return "Kid signed for successfully!";
+            DataTable addKid = HKGManager.SQL.executeProc("addKidToSignedFor", param);
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
+
         }
         catch (Exception e)
         {
-            return "Kid wasn't signed!";
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "swal(Cancelled, Couldn't add, error);", true);
+        }
+    }
+
+    public void DeleteSignedFor(string id, string kinID, string cID, string actID)
+    {
+        try
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("kidID", id);
+            param.Add("kindergardenID", kinID);
+            param.Add("classNumber", cID);
+            param.Add("activityID", actID);
+            DataTable addKid = HKGManager.SQL.executeProc("deleteKidFromSignedFor", param);
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
+        }
+        catch (Exception e)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "swal(Cancelled, Couldn't delete, error);", true);
         }
     }
 }

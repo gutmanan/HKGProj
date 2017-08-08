@@ -24,6 +24,7 @@
         }
         function OnSuccess(response, userContext, methodName) {
             var res = response.split(",").map(Number);
+
             var data = {
                 series: res
             };
@@ -86,14 +87,13 @@
             PageMethods.DrawBar(OnSuc);
         }
         function OnSuc(response, userContext, methodName) {
-            swal("Sukaaaaa");
-
-            var res1 = response.split(" ");
+            var res1 = response.split("~");
             var res2 = res1[1].split(",").map(Number);
             var res3 = res1[2].split(",").map(Number);
+            var res4 = res1[0].split(",");
 
             var data = {
-                labels: res1[0],
+                labels: res4,
                 series: [res2, res3]
             };
 
@@ -115,21 +115,24 @@
         }
     </script>
     <script type="text/javascript">
-            function DrawLine() {
-                Chartist.Line('#chartHours', {
-                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                    series: [
-                        [12, 9, 7, 8, 5],
-                        [2, 1, 3.5, 7, 3],
-                        [1, 3, 4, 5, 6]
-                    ]
-                }, {
-                        fullWidth: true,
-                        chartPadding: {
-                            right: 40
-                        }
-                    });
-            }
+        function DrawLine() {
+            PageMethods.DrawLine(OnSucc);
+        }
+        function OnSucc(response, userContext, methodName) {
+            var res1 = response.split("~");
+            var res2 = res1[0].split(",");
+            var res3 = res1[1].split(",").map(Number);
+
+            Chartist.Line('#chartHours', {
+                labels: res2,
+                series: [res3]
+            }, {
+                    fullWidth: true,
+                    chartPadding: {
+                        right: 40
+                    }
+                });
+        }
     </script>
     <div class="content">
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>
@@ -174,16 +177,16 @@
                 <div class="col-md-6">
                     <div class="card ">
                         <div class="header">
-                            <h4 class="title">2014 Sales</h4>
-                            <p class="category">All products including Taxes</p>
+                            <h4 class="title">Half Activities</h4>
+                            <p class="category">Number of kids signed for more than half of the activities</p>
                         </div>
                         <div class="content">
                             <div id="chartActivity" class="ct-chart"></div>
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i>Tesla Model S
-                                    <i class="fa fa-circle text-danger"></i>BMW 5 Series
+                                <i class="fa fa-circle text-info"></i>Kids in kindergarten
+                                    <i class="fa fa-circle text-danger"></i>kids signed for more than half of the activities
                             </div>
                             <hr>
                             <div class="stats">

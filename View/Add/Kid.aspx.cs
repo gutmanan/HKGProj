@@ -50,19 +50,25 @@ public partial class Kids : System.Web.UI.Page
             if (!addKidToPrivate())
             {
                 valMap.Add("kidID", id.Text);
-                new SQLConnection().executeProc("deleteKidFromPersons", valMap);
+                HKGManager.SQL.executeProc("deleteKidFromPersons", valMap);
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
             }
-        }
+            else
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
 
+        }
         else
         {
             if (!addKidToPublic())
             {
                 valMap.Add("kidID", id.Text);
-                new SQLConnection().executeProc("deleteKidFromPersons", valMap);
+                HKGManager.SQL.executeProc("deleteKidFromPersons", valMap);
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
             }
-        }
+            else
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
 
+        }
     }
 
     private bool addKidToPrivate()
