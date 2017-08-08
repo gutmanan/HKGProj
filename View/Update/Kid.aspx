@@ -182,7 +182,7 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_accomodation'>Kindergarten</label>
                         <div class='col-md-2'>
                             <div class='form-group internal'>
-                                <asp:ListBox ID="KGBox" CssClass="form-control" OnSelectedIndexChanged="KGBox_SelectedIndexChanged"
+                                <asp:ListBox ID="KGBox" disabled="true" CssClass="form-control" OnSelectedIndexChanged="KGBox_SelectedIndexChanged"
                                     AutoPostBack="false" runat="server" Rows="1"></asp:ListBox>
                                 <p>
                                     <asp:RequiredFieldValidator runat="server"
@@ -196,7 +196,7 @@
                         <label class='control-label col-md-1 col-md-offset-0' for='id_title'>Class</label>
                         <div class='col-md-2'>
                             <div class='form-group internal'>
-                                <asp:ListBox ID="CBox" CssClass="form-control" runat="server" Rows="1"></asp:ListBox>
+                                <asp:ListBox ID="CBox" disabled="true" CssClass="form-control" runat="server" Rows="1"></asp:ListBox>
                                 <p>
                                     <asp:RequiredFieldValidator runat="server"
                                         ControlToValidate="CBox"

@@ -74,7 +74,8 @@ public partial class Update_Kid : System.Web.UI.Page
                 KGBox.SelectedValue = row["kindergardenID"].ToString();
                 FillClasses();
                 CBox.SelectedValue = row["classNumber"].ToString();
-            } 
+            }
+            id.Enabled = false;
         }
         else
         {

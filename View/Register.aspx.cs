@@ -10,6 +10,7 @@ public partial class Register : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
         if (IsPostBack)
         {
             regAccount();
@@ -34,21 +35,40 @@ public partial class Register : System.Web.UI.Page
             HKGManager.Logger.Append("Gender: " + sGender);
             HKGManager.Logger.Append("Password: " + sPass);
 
-            Dictionary<string, object> param = new Dictionary<string, object>();
-            param.Add("ID", sid);
-            param.Add("firstName", sfName);
-            param.Add("surName", slName);
-            param.Add("dateOfBirth", sbDay);
-            param.Add("gender", sGender);
-            param.Add("pass", sPass);
+            try
+            {
+                Dictionary<string, object> para = new Dictionary<string, object>();
+                para.Add("ID", sid);
+                DataTable parent = HKGManager.SQL.executeProc("getParent", para);
+                if (parent.Rows.Count > 0)
+                {
+                    ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('basic');", true);
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                HKGManager.Logger.Append("User with the ID " + sid + " already exist");
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('fail-field','"+sid+"');", true);
+                return;
+            }
 
             try
             {
+                Dictionary<string, object> param = new Dictionary<string, object>();
+                param.Add("ID", sid);
+                param.Add("firstName", sfName);
+                param.Add("surName", slName);
+                param.Add("dateOfBirth", sbDay);
+                param.Add("gender", sGender);
+                param.Add("pass", sPass);
                 DataTable classes = HKGManager.SQL.executeProc("addParent", param);
-            } catch (Exception e)
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-field');", true);
+            }
+            catch (Exception e)
             {
                 HKGManager.Logger.Append("User with the ID "+sid+" already exist");
-                ClientScript.RegisterStartupScript(this.GetType(), "Error", "alert('User with the ID "+sid+" already exist!')", true);
+                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('fail-field','" + sid + "');", true);
                 return;
             }
             HKGManager.Logger.Append("New user was added");
@@ -62,4 +82,9 @@ public partial class Register : System.Web.UI.Page
     private static String sbDay;
     private static String sPass;
     private static String sGender;
+
+    protected void Import_Click(object sender, EventArgs e)
+    {
+        booll.Value = "0";
+    }
 }

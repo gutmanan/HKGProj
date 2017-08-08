@@ -1,16 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
-<script type="text/javascript">
-    function existAlert() {
-        swal({
-            title: "Auto close alert!",
-            text: "I will close in 2 seconds.",
-            timer: 2000,
-            showConfirmButton: false
-        });
-    }
-</script>
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,8 +11,7 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-    <!-- Bootstrap core CSS     -->
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="<%= Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" rel="stylesheet" />
 
     <!--  Light Bootstrap Dashboard core CSS    -->
     <link href="../../assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
@@ -112,6 +100,7 @@
                                 <div class="card card-plain">
                                     <div class="content">
                                         <div class="form-group">
+                                            <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>
                                             <asp:TextBox runat="server" ID="id" AutoPostBack="false" placeholder="ID" class="form-control"></asp:TextBox>
                                             <p>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
@@ -201,12 +190,9 @@
     </div>
 </body>
 <!--   Core JS Files and PerfectScrollbar library inside jquery.ui   -->
-<script src="../../assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="../../assets/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src='<%=ResolveUrl("~/assets/js/jquery.min.js")%>' type="text/javascript"></script>
+<script src='<%=ResolveUrl("~/assets/js/jquery-ui.min.js")%>' type="text/javascript"></script>
 <script src="../../assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-<!--  Forms Validations Plugin -->
-<script src="../../assets/js/jquery.validate.min.js"></script>
 
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
 <script src="../../assets/js/moment.min.js"></script>
@@ -220,23 +206,8 @@
 <!--  Checkbox, Radio, Switch and Tags Input Plugins -->
 <script src="../../assets/js/bootstrap-checkbox-radio-switch-tags.js"></script>
 
-<!--  Charts Plugin -->
-<script src="../../assets/js/chartist.min.js"></script>
-
-<!--  Notifications Plugin    -->
-<script src="../../assets/js/bootstrap-notify.js"></script>
-
 <!-- Sweet Alert 2 plugin -->
-<script src="../../assets/js/sweetalert2.js"></script>
-
-<!-- Vector Map plugin -->
-<script src="../../assets/js/jquery-jvectormap.js"></script>
-
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-
-<!-- Wizard Plugin    -->
-<script src="../../assets/js/jquery.bootstrap.wizard.min.js"></script>
+<script src='<%=ResolveUrl("~/assets/js/sweetalert2.js")%>'></script>
 
 <!--  Datatable Plugin    -->
 <script src="../../assets/js/bootstrap-table.js"></script>
@@ -265,9 +236,9 @@
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
         }, 700)
+
     });
 </script>
-
 </html>
 
 

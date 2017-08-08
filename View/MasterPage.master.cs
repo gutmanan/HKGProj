@@ -13,6 +13,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
         else userLogged.Text = HKGManager.AuthUser.ToString();
         if (!IsPostBack)
         {
+            if (HKGManager.AuthUser == null)
+                kidLIT.Visible = false;
+            else
+            {
+                QueriesLIT.Visible = false;
+            }
             Import.OnClientClick += new EventHandler(this.Import_Click);
         }
     }
