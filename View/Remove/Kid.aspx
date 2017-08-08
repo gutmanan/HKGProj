@@ -27,23 +27,15 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_title'>Kid ID</label>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='id' placeholder='ID' type='text'></asp:TextBox>
+                                <asp:ListBox ID="KidsBox" CssClass="form-control" AutoPostBack="true" runat="server" Rows="1"></asp:ListBox>
                                 <p>
                                     <asp:RequiredFieldValidator runat="server"
-                                        ControlToValidate="id"
-                                        ErrorMessage="ID Is Required"
+                                        ControlToValidate="KidsBox"
+                                        ErrorMessage="Kid Is Required"
                                         Display="Dynamic">
                                     </asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator runat="server" ControlToValidate="id"
-                                        ErrorMessage="ID Is Invalid (9 digits)"
-                                        ValidationExpression="^[0-9]{9}"
-                                        Display="Dynamic">
-                                    </asp:RegularExpressionValidator>
                                 </p>
                             </div>
-                        </div>
-                        <div class='col-md-2 col-md-offset-0'>
-                            <asp:Button runat="server" CausesValidation="false" class="btn btn-warning btn-fill" ID="FindBtn" Text="Go" type='submit'></asp:Button>
                         </div>
                     </div>
                     <div class='form-group'>
@@ -151,12 +143,12 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_adults'>Father Name</label>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='First_Father' placeholder='First Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" disabled="true" class='form-control' ID='First_Father' placeholder='First Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='Last_Father' placeholder='Last Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" disabled="true" class='form-control' ID='Last_Father' placeholder='Last Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -164,12 +156,12 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_adults'>Mother Name</label>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='First_Mother' placeholder='First Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" disabled="true" class='form-control' ID='First_Mother' placeholder='First Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='Last_Mother' placeholder='Last Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" disabled="true" class='form-control' ID='Last_Mother' placeholder='Last Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                     </div>

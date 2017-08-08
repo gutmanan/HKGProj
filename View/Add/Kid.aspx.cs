@@ -43,7 +43,7 @@ public partial class Kids : System.Web.UI.Page
         valMap.Add("dateOfBirth", DateTime.ParseExact(bDay.Text, "yyyy-MM-dd", myCItrad));
 
         //add kid to persons table
-        new SQLConnection().executeProc("addNewKidToPersons", valMap);
+        HKGManager.SQL.executeProc("addNewKidToPersons", valMap);
         valMap.Clear();
         if (radioGender.SelectedIndex == 0)
         {
@@ -178,4 +178,25 @@ public partial class Kids : System.Web.UI.Page
             KGBox.Visible = true;
         }
     }
+
+    public void clear()
+    {
+        id.Text = "";
+        id_first_name.Text = "";
+        id_last_name.Text = "";
+        bDay.Text = "";
+        StreetBox.Text = "";
+        HouseBox.Text = "";
+        LatBox.Text = "";
+        LongBox.Text = "";
+        First_Father.Text = "";
+        Last_Father.Text = "";
+        First_Mother.Text = "";
+        Last_Mother.Text = "";
+        KidPlaceBox.Text = "";
+        KGBox.Items.Clear();
+        KGBox.Items.Clear();
+        FillKGBox();
+    }
+
 }
