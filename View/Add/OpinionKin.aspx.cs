@@ -107,10 +107,12 @@ public partial class Add_Opinion : System.Web.UI.Page
             cell1.Controls.Add(h1);
             HyperLink s1 = new HyperLink() { Text = " " };
             cell1.Controls.Add(s1);
-            cell1.Controls.Add(h2);
+            if (HKGManager.AuthUser == null)
+                cell1.Controls.Add(h2);
             HyperLink s2 = new HyperLink() { Text = " " };
             cell1.Controls.Add(s2);
-            cell1.Controls.Add(h3);
+            if (HKGManager.AuthUser == null)
+                cell1.Controls.Add(h3);
             row.Cells.Add(cell1);
             // Add the TableRow to the Table
             HiddenField h = new HiddenField();

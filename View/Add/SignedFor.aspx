@@ -30,11 +30,26 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:HiddenField id="hiddenBTN" runat="server" />
+                                <asp:HiddenField ID="hiddenBTN" runat="server" />
                                 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true">
                                 </asp:ScriptManager>
                                 <br />
-                                <div class='form-group'>
+                                <div class='form-group' id="KidsBoxCon" runat="server">
+                                    <label class='control-label col-md-2 col-md-offset-0' for='id_title'>Kid ID</label>
+                                    <div class='col-md-2 indent-small'>
+                                        <div class='form-group internal'>
+                                            <asp:ListBox ID="KidsBox" CssClass="form-control" AutoPostBack="true" runat="server" Rows="1"></asp:ListBox>
+                                            <p>
+                                                <asp:RequiredFieldValidator runat="server"
+                                                    ControlToValidate="KidsBox"
+                                                    ErrorMessage="Kid Is Required"
+                                                    Display="Dynamic">
+                                                </asp:RequiredFieldValidator>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='form-group' id="idBoxCon" runat="server">
                                     <label class='control-label col-md-2 col-md-offset-0' for='id_title'>Kid ID</label>
                                     <div class='col-md-2 indent-small'>
                                         <div class='form-group internal'>

@@ -16,20 +16,54 @@ public partial class Add_SignedFor : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //FindBtn.OnClientClick = null;
+            KidsBox.SelectedIndexChanged += new EventHandler(this.KidsBox_SelectedIndexChanged);
+            if (HKGManager.AuthUser == null)
+                KidsBoxCon.Visible = false;
+            else
+            {
+                FillKidsBox();
+                idBoxCon.Visible = false;
+            }
             lit.Text = "0";
         }
         else
         {
-            //FindBtn.Enabled = false;
-            Session["SelectedKid"] = id.Text;
-            if (Session["SelectedKid"] != null)
+            if (HKGManager.AuthUser == null)
             {
-                id.Text = (string)Session["SelectedKid"];
-                this.FindBtn_Click(sender, e);
+                Session["SelectedKid"] = id.Text;
+                if (Session["SelectedKid"] != null)
+                {
+                    id.Text = (string)Session["SelectedKid"];
+                    this.FindBtn_Click(sender, e);
+                }
+            }
+            else
+            {
+                KidsBox.SelectedIndexChanged -= new EventHandler(this.KidsBox_SelectedIndexChanged);
+                Session["SelectedKid"] = KidsBox.SelectedValue;
+                if (Session["SelectedKid"] != null)
+                {
+                    KidsBox.SelectedValue = (string)Session["SelectedKid"];
+                    this.KidsBox_SelectedIndexChanged(sender, e);
+                }
             }
         }
     }
+
+    public void FillKidsBox()
+    {
+        KidsBox.Items.Add(new ListItem("Select Kid"));
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("ID", HKGManager.AuthUser.id);
+        DataTable kids = HKGManager.SQL.executeProc("getKidsParent", param);
+        foreach (DataRow row in kids.Rows)
+        {
+            ListItem li = new ListItem(row["fullName"].ToString());
+            li.Value = row["kidID"].ToString();
+            KidsBox.Items.Add(li);
+        }
+    }
+
 
     protected void FindBtn_Click(object sender, EventArgs e)
     {
@@ -71,7 +105,7 @@ public partial class Add_SignedFor : System.Web.UI.Page
             for (int j = 0; j < dt.Columns.Count; j++)
             {
                 TableCell cell = new TableCell();
-                if (j != dt.Columns.Count-1)
+                if (j != dt.Columns.Count - 1)
                     cell.Text = dt.Rows[i][j].ToString();
                 else
                 {
@@ -143,5 +177,22 @@ public partial class Add_SignedFor : System.Web.UI.Page
         {
             ClientScript.RegisterStartupScript(GetType(), "hwa", "swal(Cancelled, Couldn't delete, error);", true);
         }
+    }
+
+    protected void KidsBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Dictionary<string, object> param = new Dictionary<string, object>();
+        param.Add("ID", KidsBox.SelectedValue);
+        DataTable kidInfo = HKGManager.SQL.executeProc("getKid", param);
+        foreach (DataRow row in kidInfo.Rows)
+        {
+            selectedID = row["ID"].ToString();
+            selectedKinID = row["kindergardenID"].ToString();
+            selectedClassID = row["classNumber"].ToString();
+        }
+        Dictionary<string, object> para = new Dictionary<string, object>();
+        para.Add("kidID", KidsBox.SelectedValue);
+        DataTable activities = HKGManager.SQL.executeProc("activityForKid", para);
+        GenerateTable(activities);
     }
 }

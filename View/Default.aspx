@@ -70,12 +70,17 @@
     </script>
     <script type="text/javascript">
         function DrawGraph() {
+            PageMethods.DrawGraph(On);
+        }
+        function On(response, userContext, methodName) {
+            var res1 = response.split("~");
+            var res2 = res1[1].split(",").map(Number);
+            var res3 = res1[2].split(",").map(Number);
+            var res4 = res1[0].split(",");
+
             Chartist.Line('#chartGraph', {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8],
-                series: [
-                    [5, 9, 7, 8, 5, 3, 5, 4],
-                    [1, 4, 7, 8, 4, 5, 2, 1]
-                ]
+                labels: res4,
+                series: [res2, res3]
             }, {
                     low: 0,
                     showArea: true
@@ -115,24 +120,24 @@
         }
     </script>
     <script type="text/javascript">
-        function DrawLine() {
-            PageMethods.DrawLine(OnSucc);
-        }
-        function OnSucc(response, userContext, methodName) {
-            var res1 = response.split("~");
-            var res2 = res1[0].split(",");
-            var res3 = res1[1].split(",").map(Number);
+            function DrawLine() {
+                PageMethods.DrawLine(OnSucc);
+            }
+            function OnSucc(response, userContext, methodName) {
+                var res1 = response.split("~");
+                var res2 = res1[0].split(",");
+                var res3 = res1[1].split(",").map(Number);
 
-            Chartist.Line('#chartHours', {
-                labels: res2,
-                series: [res3]
-            }, {
-                    fullWidth: true,
-                    chartPadding: {
-                        right: 40
-                    }
-                });
-        }
+                Chartist.Line('#chartHours', {
+                    labels: res2,
+                    series: [res3]
+                }, {
+                        fullWidth: true,
+                        chartPadding: {
+                            right: 40
+                        }
+                    });
+            }
     </script>
     <div class="content">
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>
@@ -148,9 +153,16 @@
                             <div id="chartPie" class="ct-chart "></div>
                         </div>
                         <div class="footer">
+                            <div class="legend">
+                                <i class="fa fa-circle text-info"></i>Act 8
+                                <i class="fa fa-circle text-danger"></i>Act 11
+                                <i class="fa fa-circle text-warning"></i>Act 14
+                                <i class="fa fa-circle text-primary"></i>Act 2
+                                <i class="fa fa-circle text-success"></i>Act 6
+                            </div>
                             <hr>
                             <div class="stats">
-                                <i class="fa fa-clock-o"></i>Campaign sent 2 days ago
+                                <i class="fa fa-clock-o"></i>Updated just now
                             </div>
                         </div>
                     </div>
@@ -158,13 +170,17 @@
                 <div class="col-md-8">
                     <div class="card ">
                         <div class="header">
-                            <h4 class="title">2014 Sales</h4>
+                            <h4 class="title">Signed Kids</h4>
                             <asp:Literal runat="server" ID="GraphLit"></asp:Literal>
                         </div>
                         <div class="content">
                             <div id="chartGraph" class="ct-chart"></div>
                         </div>
                         <div class="footer">
+                            <div class="legend">
+                                <i class="fa fa-circle text-info"></i>Total number of kids
+                                <i class="fa fa-circle text-danger"></i>Number of signed kids
+                            </div>
                             <hr>
                             <div class="stats">
                                 <i class="fa fa-check"></i>Data information certified
@@ -198,21 +214,19 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Users Behavior</h4>
-                            <p class="category">24 Hours performance</p>
+                            <h4 class="title">Age Distribution</h4>
+                            <p class="category">Number of kids by ages</p>
                         </div>
                         <div class="content">
                             <div id="chartHours" class="ct-chart"></div>
                         </div>
                         <div class="footer">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i>Open
-                                    <i class="fa fa-circle text-danger"></i>Click
-                                    <i class="fa fa-circle text-warning"></i>Click Second Time
+                                <i class="fa fa-circle text-info"></i>Number of Kids
                             </div>
                             <hr>
                             <div class="stats">
-                                <i class="fa fa-history"></i>Updated 3 minutes ago
+                                <i class="fa fa-clock-o"></i>Updated just now
                             </div>
                         </div>
                     </div>

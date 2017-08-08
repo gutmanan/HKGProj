@@ -82,9 +82,4 @@ public partial class Register : System.Web.UI.Page
     private static String sbDay;
     private static String sPass;
     private static String sGender;
-
-    protected void Import_Click(object sender, EventArgs e)
-    {
-        booll.Value = "0";
-    }
 }

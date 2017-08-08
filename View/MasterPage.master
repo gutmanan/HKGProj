@@ -79,7 +79,6 @@
                         <div class="collapse" id="Kids">
                             <ul class="nav">
                                 <li><a href='<%=ResolveUrl("~/View/Add/Kid.aspx")%>'>Add</a></li>
-                                <li><a href='<%=ResolveUrl("~/View/Update/Kid.aspx")%>'>Update</a></li>
                                 <li><a href='<%=ResolveUrl("~/View/Remove/Kid.aspx")%>'>Remove</a></li>
                             </ul>
                         </div>
