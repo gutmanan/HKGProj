@@ -13,6 +13,7 @@ public partial class Kids : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            clear();
             addKidButton.OnClientClick += new EventHandler(this.addKidButton_Click);
             KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
             radioGender.SelectedIndexChanged += new EventHandler(this.radioGender_SelectedIndexChanged);
@@ -54,9 +55,13 @@ public partial class Kids : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
             }
             else
+            {
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
+                clear();
+            }
+        
 
-        }
+    }
         else
         {
             if (!addKidToPublic())
@@ -71,8 +76,10 @@ public partial class Kids : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('deleted-message');", true);
             }
             else
+            {
                 ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-message');", true);
-
+                clear();
+            }
         }
     }
 
@@ -102,8 +109,8 @@ public partial class Kids : System.Web.UI.Page
             valMap.Add("city", CityBox.Text);
             valMap.Add("latitude", double.Parse(LatBox.Text, System.Globalization.CultureInfo.InvariantCulture));
             valMap.Add("longitude", double.Parse(LongBox.Text, System.Globalization.CultureInfo.InvariantCulture));
-            valMap.Add("fatherName", TextBox1.Text + " " + TextBox2.Text);
-            valMap.Add("motherName", TextBox3.Text + " " + TextBox4.Text);
+            valMap.Add("fatherName", First_Father.Text + " " + Last_Father.Text);
+            valMap.Add("motherName", First_Mother.Text + " " + Last_Mother.Text);
             valMap.Add("placeInFamily", Int32.Parse(kidPlace.Text));
             valMap.Add("kindergardenID", Int32.Parse(row["ID"].ToString()));
             valMap.Add("classNumber", Int32.Parse(row["Number"].ToString()));
@@ -134,8 +141,8 @@ public partial class Kids : System.Web.UI.Page
             valMap.Add("city", CityBox.Text);
             valMap.Add("latitude", double.Parse(LatBox.Text, System.Globalization.CultureInfo.InvariantCulture));
             valMap.Add("longitude", double.Parse(LongBox.Text, System.Globalization.CultureInfo.InvariantCulture));
-            valMap.Add("fatherName", TextBox1.Text + " " + TextBox2.Text);
-            valMap.Add("motherName", TextBox3.Text + " " + TextBox4.Text);
+            valMap.Add("fatherName", First_Father.Text + " " + Last_Father.Text);
+            valMap.Add("motherName", First_Mother.Text + " " + Last_Mother.Text);
             valMap.Add("placeInFamily", Int32.Parse(kidPlace.Text));
             valMap.Add("kindergardenID", Int32.Parse(row["ID"].ToString()));
             valMap.Add("classNumber", Int32.Parse(row["Number"].ToString()));
@@ -193,7 +200,7 @@ public partial class Kids : System.Web.UI.Page
         Last_Father.Text = "";
         First_Mother.Text = "";
         Last_Mother.Text = "";
-        KidPlaceBox.Text = "";
+        kidPlace.Text = "";
         KGBox.Items.Clear();
         KGBox.Items.Clear();
         FillKGBox();

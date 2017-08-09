@@ -35,7 +35,7 @@
                                 </asp:ScriptManager>
                                 <br />
                                 <div class='form-group' id="KidsBoxCon" runat="server">
-                                    <label class='control-label col-md-2 col-md-offset-0' for='id_title'>Kid ID</label>
+                                    <label runat="server" class='control-label col-md-2 col-md-offset-0' ID="kidLab" for='id_title'>Kid ID</label>
                                     <div class='col-md-2 indent-small'>
                                         <div class='form-group internal'>
                                             <asp:ListBox ID="KidsBox" CssClass="form-control" AutoPostBack="true" runat="server" Rows="1"></asp:ListBox>

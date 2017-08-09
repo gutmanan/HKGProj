@@ -114,7 +114,7 @@
                         </div>
                         <div class="form-group">
                             <label>Class</label>
-                            <asp:ListBox ID="CBox" CssClass="form-control" OnSelectedIndexChanged="CBox_SelectedIndexChanged" runat="server" Rows="1"></asp:ListBox>
+                            <asp:ListBox ID="CBox" CssClass="form-control" runat="server" Rows="1"></asp:ListBox>
                             <p>
                                 <asp:RequiredFieldValidator runat="server"
                                     ControlToValidate="CBox"

@@ -155,12 +155,12 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_adults'>Father Name</label>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='TextBox1' placeholder='First Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" class='form-control' ID='First_Father' placeholder='First Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='TextBox2' placeholder='Last Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" class='form-control' ID='Last_Father' placeholder='Last Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -168,12 +168,12 @@
                         <label class='control-label col-md-2 col-md-offset-0' for='id_adults'>Mother Name</label>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='TextBox3' placeholder='First Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" class='form-control' ID='First_Mother' placeholder='First Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                         <div class='col-md-2 indent-small'>
                             <div class='form-group internal'>
-                                <asp:TextBox runat="server" class='form-control' ID='TextBox4' placeholder='Last Name' type='text'></asp:TextBox>
+                                <asp:TextBox runat="server" class='form-control' ID='Last_Mother' placeholder='Last Name' type='text'></asp:TextBox>
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,6 @@ public partial class View_ActivityCal : System.Web.UI.Page
         if (!IsPostBack)
         {
             KGBox.SelectedIndexChanged += new EventHandler(this.KGBox_SelectedIndexChanged);
-            CBox.SelectedIndexChanged += new EventHandler(this.CBox_SelectedIndexChanged);
             calBtn.OnClientClick += new EventHandler(this.calBtn_Click);
             FillKGBox();
         }
@@ -23,6 +22,7 @@ public partial class View_ActivityCal : System.Web.UI.Page
 
     public void FillKGBox()
     {
+        KGBox.Items.Add(new ListItem("Select Kindergarten"));
         DataTable kindergartens = HKGManager.SQL.executeProc("getKindergartens", null);
         foreach (DataRow row in kindergartens.Rows)
         {
@@ -38,6 +38,7 @@ public partial class View_ActivityCal : System.Web.UI.Page
         Dictionary<string, object> param = new Dictionary<string, object>();
         param.Add("ID", KGBox.SelectedItem.Value);
         DataTable classes = HKGManager.SQL.executeProc("getClasses", param);
+        CBox.Items.Add(new ListItem("Select Class"));
         foreach (DataRow row in classes.Rows)
         {
             ListItem li = new ListItem(row["name"].ToString());
@@ -56,44 +57,37 @@ public partial class View_ActivityCal : System.Web.UI.Page
         return dict;
     }
 
-    public void FillCal()
-    {
-
-    }
-
-    protected void CBox_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-
     protected void calBtn_Click(object sender, EventArgs e)
     {
-        ClientScript.RegisterStartupScript(GetType(), "hwa", "initFullCalendar();", true);
-        Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("kindergardenID", KGBox.SelectedItem.Value);
-        param.Add("classNumber", CBox.SelectedItem.Value);
-        DataTable act = HKGManager.SQL.executeProc("activityInKindergarden", param);
-        int count = 0;
-        foreach (DataRow row in act.Rows)
+        if (KGBox.SelectedIndex != 0 && CBox.SelectedIndex != 0)
         {
-            var title = row["name"].ToString();
-            var day = 0;
-            var sHou = 0;
-            var sMin = 0;
-            var length = 0;
-            try
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "initFullCalendar();", true);
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("kindergardenID", KGBox.SelectedItem.Value);
+            param.Add("classNumber", CBox.SelectedItem.Value);
+            DataTable act = HKGManager.SQL.executeProc("activityInKindergarden", param);
+            int count = 0;
+            foreach (DataRow row in act.Rows)
             {
-                day = int.Parse(row["dayInWeek"].ToString());
-                sHou = Int32.Parse(row["startTime"].ToString().Split(':')[0], NumberStyles.Any);
-                sMin = Int32.Parse(row["startTime"].ToString().Split(':')[1], NumberStyles.Any);
-                length = int.Parse(row["length"].ToString());
-                HKGManager.Logger.Append("Parsed successfully: " + day + " " + sHou + " " + sMin + " " + length);
+                var title = row["name"].ToString();
+                var day = 0;
+                var sHou = 0;
+                var sMin = 0;
+                var length = 0;
+                try
+                {
+                    day = int.Parse(row["dayInWeek"].ToString());
+                    sHou = Int32.Parse(row["startTime"].ToString().Split(':')[0], NumberStyles.Any);
+                    sMin = Int32.Parse(row["startTime"].ToString().Split(':')[1], NumberStyles.Any);
+                    length = int.Parse(row["length"].ToString());
+                    HKGManager.Logger.Append("Parsed successfully: " + day + " " + sHou + " " + sMin + " " + length);
+                }
+                catch (Exception ex)
+                {
+                    HKGManager.Logger.Append("Could not parse: " + day + " " + sHou + " " + sMin + " " + length);
+                }
+                ClientScript.RegisterStartupScript(GetType(), "e" + count++, "addEvent('" + title + "','" + day + "','" + sHou + "','" + sMin + "','" + length + "');", true);
             }
-            catch (Exception ex)
-            {
-                HKGManager.Logger.Append("Could not parse: " + day + " " + sHou + " " + sMin + " " + length);
-            }
-            ClientScript.RegisterStartupScript(GetType(), "e" + count++, "addEvent('" + title + "','" + day + "','" + sHou + "','" + sMin + "','" + length + "');", true);
         }
     }
 }

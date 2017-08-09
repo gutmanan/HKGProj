@@ -42,14 +42,14 @@ public partial class Register : System.Web.UI.Page
                 DataTable parent = HKGManager.SQL.executeProc("getParent", para);
                 if (parent.Rows.Count > 0)
                 {
-                    ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('basic');", true);
+                    booll.Value = "0";
                     return;
                 }
             }
             catch (Exception e)
             {
                 HKGManager.Logger.Append("User with the ID " + sid + " already exist");
-                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('fail-field','"+sid+"');", true);
+                booll.Value = "0";
                 return;
             }
 
@@ -63,17 +63,19 @@ public partial class Register : System.Web.UI.Page
                 param.Add("gender", sGender);
                 param.Add("pass", sPass);
                 DataTable classes = HKGManager.SQL.executeProc("addParent", param);
-                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('added-field');", true);
+                booll.Value = "1";
             }
             catch (Exception e)
             {
                 HKGManager.Logger.Append("User with the ID "+sid+" already exist");
-                ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('fail-field','" + sid + "');", true);
+                booll.Value = "0";
                 return;
             }
             HKGManager.Logger.Append("New user was added");
             Response.Redirect("/View/Login.aspx");
         }
+        else booll.Value = "2";
+
     }
 
     private static String sid;

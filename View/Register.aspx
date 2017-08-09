@@ -23,7 +23,16 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-
+    <script>
+        function myFunction() {
+            var currentVal = document.getElementById('booll').getAttribute('value')
+            if (currentVal == new String("0").valueOf()) {
+                swal("Oops!", "User with the same ID is already exist", "error");
+            } else if (currentVal == new String("2").valueOf()) {
+                swal("Oops!", "Password and password confirmation doesn't match", "error");
+            }
+        }
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-transparent navbar-absolute">
@@ -79,21 +88,31 @@
                                     </div>
                                 </div>
                                 <div class="media-body">
-                                    <h4>Awesome Performances</h4>
+                                    <h4>Awesome Statistics</h4>
                                 </div>
                             </div>
 
                             <div class="media">
                                 <div class="media-left">
                                     <div class="icon">
-                                        <i class="pe-7s-headphones"></i>
+                                        <i class="pe-7s-note"></i>
                                     </div>
                                 </div>
                                 <div class="media-body">
-                                    <h4>Global Support</h4>
+                                    <h4>Easy kids management</h4>
                                 </div>
                             </div>
 
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="icon">
+                                        <i class="pe-7s-gym"></i>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <h4>Schedule Activities</h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 col-md-offset-s1">
                             <form method="post" action="Register.aspx" runat="server">
@@ -101,6 +120,7 @@
                                     <div class="content">
                                         <div class="form-group">
                                             <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+                                            <asp:HiddenField ID="booll" runat="server" Value="1" />
                                             <asp:TextBox runat="server" ID="id" AutoPostBack="false" placeholder="ID" class="form-control"></asp:TextBox>
                                             <p>
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
@@ -222,22 +242,22 @@
 <script src="../../assets/js/demo.js"></script>
 
 <script type="text/javascript">
-    $().ready(function () {
+        $().ready(function () {
 
-        // Init Sliders
-        demo.initFormExtendedSliders();
+            // Init Sliders
+            demo.initFormExtendedSliders();
 
-        // Init DatetimePicker
-        demo.initFormExtendedDatetimepickers();
+            // Init DatetimePicker
+            demo.initFormExtendedDatetimepickers();
 
-        lbd.checkFullPageBackgroundImage();
+            lbd.checkFullPageBackgroundImage();
 
-        setTimeout(function () {
-            // after 1000 ms we add the class animated to the login/register card
-            $('.card').removeClass('card-hidden');
-        }, 700)
-
-    });
+            setTimeout(function () {
+                // after 1000 ms we add the class animated to the login/register card
+                $('.card').removeClass('card-hidden');
+            }, 700)
+            myFunction();
+        });
 </script>
 </html>
 

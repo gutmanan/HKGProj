@@ -36,6 +36,7 @@ public partial class Add_Opinion : System.Web.UI.Page
 
     public void FillKGBox()
     {
+        KGBox.Items.Add(new ListItem("Select Kindergarten"));
         DataTable kindergartens = HKGManager.SQL.executeProc("getKindergartens", null);
         foreach (DataRow row in kindergartens.Rows)
         {
@@ -47,10 +48,13 @@ public partial class Add_Opinion : System.Web.UI.Page
 
     public void KGBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("ID", KGBox.SelectedItem.Value);
-        DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", param);
-        GenerateTable(opinions, datatables);
+        if (KGBox.SelectedIndex != 0)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("ID", KGBox.SelectedItem.Value);
+            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByKindergarden", param);
+            GenerateTable(opinions, datatables);
+        }
     }
 
     private void GenerateTable(DataTable dt, Table tbl)
@@ -188,6 +192,9 @@ public partial class Add_Opinion : System.Web.UI.Page
     }
     protected void Unnamed_Click(object sender, EventArgs e)
     {
-        ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('input-field');", true);
+        if (KGBox.SelectedIndex != 0)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('input-field');", true);
+        }
     }
 }

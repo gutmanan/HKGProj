@@ -16,11 +16,11 @@ public partial class Add_SignedFor : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            KidsBox.SelectedIndexChanged += new EventHandler(this.KidsBox_SelectedIndexChanged);
             if (HKGManager.AuthUser == null)
                 KidsBoxCon.Visible = false;
             else
             {
+                KidsBox.SelectedIndexChanged += new EventHandler(this.KidsBox_SelectedIndexChanged);
                 FillKidsBox();
                 idBoxCon.Visible = false;
             }
@@ -46,6 +46,8 @@ public partial class Add_SignedFor : System.Web.UI.Page
                     KidsBox.SelectedValue = (string)Session["SelectedKid"];
                     this.KidsBox_SelectedIndexChanged(sender, e);
                 }
+                kidLab.Visible = false;
+                KidsBox.Visible = false;
             }
         }
     }

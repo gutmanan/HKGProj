@@ -173,11 +173,10 @@
                                         }
                                     }
                                 </script>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" runat="server" id ="impTR">
                                     <li>
                                         <a href="#" id="ImportTrainings" runat="server" onclick="return myFunction(); return false;">Import Trainings</a>
                                     <li class="divider"></li>
-                                    <li><a href="#">Export Trainings</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown dropdown-with-icons">

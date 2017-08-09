@@ -34,6 +34,7 @@ public partial class View_Add_Default : System.Web.UI.Page
 
     public void FillACTBox()
     {
+        ACTBox.Items.Add(new ListItem("Select Activity"));
         DataTable activities = HKGManager.SQL.executeProc("getActivities", null);
         foreach (DataRow row in activities.Rows)
         {
@@ -45,10 +46,13 @@ public partial class View_Add_Default : System.Web.UI.Page
 
     protected void ACTBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Dictionary<string, object> param = new Dictionary<string, object>();
-        param.Add("actID", ACTBox.SelectedItem.Value);
-        DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByActivity", param);
-        GenerateTable(opinions, Table1);
+        if (ACTBox.SelectedIndex != 0)
+        {
+            Dictionary<string, object> param = new Dictionary<string, object>();
+            param.Add("actID", ACTBox.SelectedItem.Value);
+            DataTable opinions = HKGManager.SQL.executeProc("getOpinionsByActivity", param);
+            GenerateTable(opinions, Table1);
+        }
     }
 
     private void GenerateTable(DataTable dt, Table tbl)
@@ -187,6 +191,9 @@ public partial class View_Add_Default : System.Web.UI.Page
     }
     protected void Unnamed_Click(object sender, EventArgs e)
     {
-        ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('input-field');", true);
+        if (ACTBox.SelectedIndex != 0)
+        {
+            ClientScript.RegisterStartupScript(GetType(), "hwa", "showSwal('input-field');", true);
+        }
     }
 }
